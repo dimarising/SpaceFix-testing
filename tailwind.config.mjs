@@ -2,6 +2,9 @@
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
+    fontFamily: {
+      sans: ['Satoshi', 'system-ui', 'sans-serif'],
+    },
     extend: {
       colors: {
         brand: {
@@ -30,9 +33,6 @@ export default {
         },
         title: '#010101',
         description: '#2A2C11',
-      },
-      fontFamily: {
-        sans: ['Satoshi', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         title: ['var(--text-title-size)', { lineHeight: '1.2', letterSpacing: '-0.025em' }],

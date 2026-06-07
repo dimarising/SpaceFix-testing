@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  --font-sans: 'Satoshi', system-ui, sans-serif;
   --header-height: 56px;
   --page-gutter: 1rem;
   --content-max-width: 72rem;
@@ -55,11 +56,19 @@
 
 @layer base {
   html {
+    font-family: var(--font-sans);
     scroll-behavior: smooth;
   }
 
   body {
     @apply font-sans text-surface-dark antialiased bg-white;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font-family: inherit;
   }
 
   ::selection {
