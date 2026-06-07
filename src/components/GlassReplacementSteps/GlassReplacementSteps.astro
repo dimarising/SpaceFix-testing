@@ -1,45 +1,49 @@
 ---
+const steps = [
+  {
+    number: '01',
+    title: 'Przyjęcie telefonu',
+    description:
+      'Sporządzamy kartę przyjęcia z opisem usterki, wyceną i szacowanym czasem odbioru. Otrzymujesz egzemplarz karty do okazania przy odbiorze.',
+  },
+  {
+    number: '02',
+    title: 'Naprawa',
+    description:
+      'Technicy wykonują usługę z najwyższą starannością — precyzyjna praca, testy wyświetlacza i warstwy dotykowej po zakończeniu.',
+  },
+  {
+    number: '03',
+    title: 'Odbior',
+    description:
+      'Kontaktujemy się, gdy telefon jest gotowy. Przy odbiorze okazujesz kartę i dokonujesz płatności. Każda naprawa objęta jest 3-miesięczną gwarancją.',
+  },
+];
 ---
 
-<section class="py-16 bg-white">
-  <div class="container mx-auto px-4">
-    <div class="max-w-4xl mx-auto space-y-8">
+<section class="section-padding bg-[#fbfcfe]">
+  <div class="section-container">
+    <h2 class="mb-10 text-center text-2xl font-bold text-[#010101] sm:mb-12 sm:text-3xl">
+      Jak wygląda naprawa?
+    </h2>
 
-      <div class="bg-white rounded-lg shadow-lg p-6 md:p-8" style="box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 -4px 6px -2px rgba(0, 0, 0, 0.1);">
-        <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-          1. Przyjęcie telefonu do naprawy
-        </h3>
-        <p class="text-base md:text-lg leading-relaxed text-gray-700">
-          Dostarczając telefon do naszego serwisu, pierwszym etapem jest sporządzenie karty przyjęcia, która będzie zawierać Twoje dane osobowe, opis usterki oraz wycenę i szacowany czas odbioru urządzenia. Potwierdzając warunki usługi zostanie wydany egzemplarz karty przyjęcia, który należy okazać przy odbieraniu telefonu.
-        </p>
-      </div>
-
-      <div class="flex justify-center">
-        <img src="/images/arrow-down.png" alt="Arrow down" class="w-20 h-20" />
-      </div>
-
-      <div class="bg-white rounded-lg shadow-lg p-6 md:p-8" style="box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 -4px 6px -2px rgba(0, 0, 0, 0.1);">
-        <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-          2. Naprawa telefonu
-        </h3>
-        <p class="text-base md:text-lg leading-relaxed text-gray-700">
-          Po przyjęciu telefonu do naprawy, nasi doświadczeni technicy przystępują do profesjonalnej wymiany szybki. Proces obejmuje precyzyjną separację warstw ekranu, montaż nowej wysokiej jakości szybki oraz dokładne testy funkcjonalności wyświetlacza i warstwy dotykowej. Wszystkie naprawy wykonywane są z najwyższą starannością, aby zapewnić pełną sprawność Twojego urządzenia.
-        </p>
-      </div>
-
-      <div class="flex justify-center">
-        <img src="/images/arrow-down.png" alt="Arrow down" class="w-20 h-20" />
-      </div>
-
-      <div class="bg-white rounded-lg shadow-lg p-6 md:p-8" style="box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 -4px 6px -2px rgba(0, 0, 0, 0.1);">
-        <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-          3. Odbior telefonu
-        </h3>
-        <p class="text-base md:text-lg leading-relaxed text-gray-700">
-          Po zakończeniu naprawy skontaktujemy się z Tobą, aby poinformować o gotowości telefonu do odbioru. Przy odbiorze urządzenia należy okazać kartę przyjęcia oraz dokonać płatności za wykonaną usługę. Każda naprawa objęta jest 3-miesięczną gwarancją, a nasz zespół zawsze służy pomocą w przypadku jakichkolwiek pytań dotyczących naprawy.
-        </p>
-      </div>
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        steps.map((step) => (
+          <article class="relative flex flex-col items-center rounded-2xl bg-white px-6 pb-8 pt-10 text-center shadow-contact sm:px-8 sm:pb-10">
+            <div
+              class="absolute left-1/2 top-0 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#1c1d11] text-xs font-bold text-white"
+              aria-hidden="true"
+            >
+              {step.number}
+            </div>
+            <h3 class="text-lg font-bold text-[#010101] sm:text-xl">{step.title}</h3>
+            <p class="mt-2 text-[15px] leading-relaxed text-[#64748b] sm:text-base">
+              {step.description}
+            </p>
+          </article>
+        ))
+      }
     </div>
   </div>
 </section>
-

@@ -6,43 +6,36 @@ interface Props {
 }
 
 const { title, imageSrc, imageAlt } = Astro.props;
+
+const textClass = 'text-[15px] leading-relaxed text-[#64748b] sm:text-base';
+const plainTextClass = 'prose-service space-y-4';
 ---
 
-<section class="py-16 bg-white">
-  <div class="container mx-auto px-4">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
-      <!-- Block 1: Text (row 1 / col 1) -->
-      <div class="max-w-2xl">
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">{title}</h2>
-        <div class="mt-5 space-y-4 text-base md:text-lg leading-relaxed text-gray-700">
+<section class="section-padding bg-white">
+  <div class="section-container">
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-x-10 lg:gap-y-8">
+      <div class="flex flex-col gap-5 lg:col-start-1 lg:row-start-1">
+        <h2 class="text-2xl font-bold text-[#010101] sm:text-3xl">{title}</h2>
+        <div class:list={['prose-service space-y-4', textClass]}>
           <slot name="firstBlock" />
         </div>
       </div>
 
-      <!-- Block 2: Image (row 1 / col 2) -->
-      <div class="max-w-2xl">
-        <div class="relative rounded-xl overflow-hidden shadow-lg min-h-[320px] md:min-h-[360px]">
-          <img
-            src={imageSrc}
-            alt={imageAlt}
-            class="absolute inset-0 w-full h-full object-cover"
-            loading="lazy"
-          />
-        </div>
+      <div class="overflow-hidden rounded-2xl shadow-contact lg:col-start-2 lg:row-start-1 lg:self-start">
+        <img
+          src={imageSrc}
+          alt={imageAlt}
+          class="aspect-[4/3] h-full w-full object-cover lg:aspect-auto lg:min-h-[320px]"
+          loading="lazy"
+        />
       </div>
 
-      <!-- Block 3: Text (row 2 / col 1) -->
-      <div class="max-w-2xl">
-        <div class="text-base md:text-lg leading-relaxed text-gray-700">
-          <slot name="thirdBlock" />
-        </div>
+      <div class:list={[plainTextClass, textClass, 'lg:col-start-1 lg:row-start-2']}>
+        <slot name="thirdBlock" />
       </div>
 
-      <!-- Block 4: Text (row 2 / col 2) -->
-      <div class="max-w-2xl">
-        <div class="text-base md:text-lg leading-relaxed text-gray-700">
-          <slot name="fourthBlock" />
-        </div>
+      <div class:list={[plainTextClass, textClass, 'lg:col-start-2 lg:row-start-2']}>
+        <slot name="fourthBlock" />
       </div>
     </div>
   </div>

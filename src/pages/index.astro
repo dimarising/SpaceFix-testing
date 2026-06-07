@@ -1,20 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import WelcomeSection from '../components/WelcomeSection/WelcomeSection';
-import BlackDiv from '../components/BlackDiv/BlackDiv';
-import QuickRepairSection from '../components/QuickRepairSection/QuickRepairSection';
-import WhyUsSection from '../components/WhyUsSection/WhyUsSection.astro';
 import PopularRepairs from '../components/PopularRepairs/PopularRepairs.astro';
-import WhatNeedToKnowSection from '../components/WhatNeedToKnowSection/WhatNeedToKnowSection.astro';
+import WhyUsSection from '../components/WhyUsSection/WhyUsSection.astro';
+import HowItWorksSection from '../components/HowItWorksSection/HowItWorksSection.astro';
+import RepairPricingSection from '../components/RepairPricingSection/RepairPricingSection.astro';
 import GoogleOpinions from '../components/GoogleOpinions/GoogleOpinions';
+import VisitUsSection from '../components/VisitUsSection/VisitUsSection.astro';
 ---
 
 <Layout>
   <WelcomeSection />
   <PopularRepairs />
-  <BlackDiv />
-  <WhatNeedToKnowSection />
-  <GoogleOpinions client:load />
+  <HowItWorksSection />
   <WhyUsSection />
-  <QuickRepairSection />
+  <RepairPricingSection />
+  <GoogleOpinions client:load />
+  <VisitUsSection />
 </Layout>

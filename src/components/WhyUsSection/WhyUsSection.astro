@@ -1,37 +1,36 @@
 ---
-const points = [
-  {
-    title: "Szybkie i sprawne naprawy",
-    description: "W naszym serwisie telefonów w Warszawie Twoje urządzenie naprawimy w ciągu 24-48 godzin, bez zbędnego czekania i opóźnień. Naprawa telefonu w SpaceFix jest szybka, profesjonalna i skuteczna, obejmuje wszystkie popularne modele smartfonów, w tym iPhone, Samsung, Xiaomi i wiele innych. Dzięki naszemu doświadczeniu w serwisie telefonów w Warszawie możesz być pewien, że Twój smartfon zostanie naprawiony sprawnie i wróci do Ciebie w pełni sprawny."
-  },
-  {
-    title: "Profesjonalizm i doświadczenie",
-    description: "Od lat zajmujemy się profesjonalną naprawą telefonów w Warszawie, obsługując tysiące zadowolonych klientów. Nasi doświadczeni technicy w serwisie telefonów SpaceFix dbają o każdy detal, dokładnie diagnozują usterki i przywracają pełną funkcjonalność smartfonów iPhone, Samsung, Xiaomi oraz innych marek. Profesjonalizm i precyzja w naprawach telefonów w Warszawie to nasza codzienna praktyka, dzięki czemu Twój telefon trafia w ręce ekspertów."
-  },
-  {
-    title: "Konkurencyjne ceny",
-    description: "Oferujemy wysoką jakość usług w cenach niższych niż w wielu innych serwisach telefonów w Warszawie. Nasza naprawa telefonu łączy profesjonalizm, szybki czas realizacji i korzystne ceny dla klientów indywidualnych i biznesowych. SpaceFix to serwis telefonów w Warszawie, w którym możesz liczyć na sprawną naprawę smartfonów iPhone, Samsung, Xiaomi i innych modeli w atrakcyjnych cenach."
-  },
-  {
-    title: "Gwarancja i wsparcie",
-    description: "Po każdej naprawie telefonu w naszym serwisie w Warszawie otrzymujesz aż 3 miesiące gwarancji oraz pełne wsparcie techniczne. Naprawa telefonu w SpaceFix obejmuje fachową diagnostykę i profesjonalne wykonanie usług, a nasza gwarancja zapewnia bezpieczeństwo i komfort użytkowania smartfona. Serwis telefonów w Warszawie SpaceFix to pewność, że Twój telefon będzie działał poprawnie po każdej naprawie i zawsze możesz liczyć na naszą pomoc."
-  }
-];
-
+import WhyUsFeatureItem from './WhyUsFeatureItem.astro';
+import WhyUsStatItem from './WhyUsStatItem.astro';
+import { whyUsFeatures, whyUsStats } from './why-us-data';
 ---
 
-<section class="py-16 bg-gray-50">
-  <div class="container mx-auto px-4">
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Dlaczego warto wybrać SpaceFix?</h2>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      {points.map(point => (
-        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow text-center">
-          <h3 class="text-xl font-semibold mb-2">{point.title}</h3>
-          <p class="text-gray-600">{point.description}</p>
-        </div>
-      ))}
+<section
+  id="dlaczego-my"
+  class="relative flex min-h-[862px] items-center overflow-hidden bg-[#fbfcfe] section-padding scroll-mt-[var(--header-height)]"
+>
+  <div
+    class="pointer-events-none absolute inset-y-0 left-1/2 w-full max-w-[1440px] -translate-x-1/2 bg-cover bg-[center_0%] bg-no-repeat"
+    style="background-image: url('/images/assets/why-spacefix.png');"
+    aria-hidden="true"
+  />
+  <div class="pointer-events-none absolute inset-0 bg-[#fbfcfe]/75" aria-hidden="true" />
+
+  <div class="section-container relative">
+    <div class="mx-auto mb-10 max-w-3xl text-center md:mb-12">
+      <h2 class="section-title mb-4">Dlaczego SpaceFix?</h2>
+      <p class="section-subtitle mx-auto">
+        Zaufaj specjalistom z wieloletnim doświadczeniem
+      </p>
+    </div>
+
+    <div class="mb-10 grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-8 lg:mb-12 lg:grid-cols-4 lg:gap-6">
+      {whyUsFeatures.map((feature) => <WhyUsFeatureItem {...feature} />)}
+    </div>
+
+    <div class="h-[178px] rounded-2xl bg-white shadow-contact md:rounded-3xl">
+      <div class="grid h-full grid-cols-2 grid-rows-2 place-items-center md:grid-cols-4 md:grid-rows-1">
+        {whyUsStats.map((stat) => <WhyUsStatItem {...stat} />)}
+      </div>
     </div>
   </div>
 </section>
-

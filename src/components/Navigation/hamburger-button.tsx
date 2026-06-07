@@ -8,22 +8,14 @@ interface HamburgerButtonProps {
 export default function HamburgerButton({ className = '', onClick }: HamburgerButtonProps) {
   return (
     <button
-      className={`nav:hidden flex flex-col h-12 w-12 rounded justify-center items-center cursor-pointer group ${className}`}
-      aria-label="Przełącz menu"
+      type="button"
+      className={`nav:hidden flex h-10 w-10 flex-col items-center justify-center gap-1.5 cursor-pointer ${className}`}
+      aria-label="Otwórz menu"
       onClick={onClick}
     >
-      <span
-        aria-hidden="true"
-        className="h-0.5 w-6 my-1 rounded-full bg-black transition ease transform duration-200 opacity-80 group-[.expanded]:rotate-45 group-[.expanded]:translate-y-2.5"
-      ></span>
-      <span
-        aria-hidden="true"
-        className="h-0.5 w-6 my-1 rounded-full bg-black transition ease transform duration-200 opacity-80 group-[.expanded]:opacity-0"
-      ></span>
-      <span
-        aria-hidden="true"
-        className="h-0.5 w-6 my-1 rounded-full bg-black  transition ease transform duration-200 opacity-80 group-[.expanded]:-rotate-45 group-[.expanded]:-translate-y-2.5"
-      ></span>
+      <span aria-hidden="true" className="h-0.5 w-6 rounded-full bg-black" />
+      <span aria-hidden="true" className="h-0.5 w-6 rounded-full bg-black" />
+      <span aria-hidden="true" className="h-0.5 w-6 rounded-full bg-black" />
     </button>
   );
 }

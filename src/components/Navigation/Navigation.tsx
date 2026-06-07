@@ -1,13 +1,12 @@
 import React from 'react';
 import MainNav from './MainNav.tsx';
 
-interface NavigationProps {
-  className?: string;
-}
-const Navigation = ({ className }: NavigationProps) => {
+const Navigation = () => {
   return (
-    <header className="flex justify-center top-0 left-0 w-full z-50 h-[var(--header-height)] fixed bg-white shadow-md px-4 lg:px-6 xl:px-10">
-      <MainNav></MainNav>
+    <header className="fixed top-0 left-0 z-50 flex h-[var(--header-height)] w-full items-center justify-center bg-white">
+      <div className="page-shell flex h-full items-center">
+        <MainNav />
+      </div>
     </header>
   );
 };

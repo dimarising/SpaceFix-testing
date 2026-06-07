@@ -18,8 +18,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="pl">
   <head>
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&display=swap"
+      rel="stylesheet"
+    />
     <!-- Google Tag Manager -->
     <script>
       (function (w, d, s, l, i) {
@@ -65,7 +70,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <Navigation client:load />
-    <main class="pt-[var(--header-height)]">
+    <main class="pt-[var(--header-height)] min-h-[calc(100vh-var(--header-height))]">
       <slot />
     </main>
     <Footer />

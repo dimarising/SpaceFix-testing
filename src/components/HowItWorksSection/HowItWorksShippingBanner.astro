@@ -1,0 +1,27 @@
+---
+import { RiMailSendLine } from 'react-icons/ri';
+import { howItWorksShipping } from './how-it-works-data';
+
+const darkButtonClass =
+  'inline-flex w-full shrink-0 items-center justify-center rounded-[14px] bg-[#1c1d11] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#2a2b1a] focus:outline-none focus:ring-2 focus:ring-[#1c1d11] focus:ring-offset-2 sm:px-6 sm:py-3.5 sm:text-base lg:w-auto';
+---
+
+<div
+  class="flex w-full flex-col items-center gap-5 rounded-xl bg-white p-6 text-center shadow-contact sm:gap-6 sm:p-8 lg:flex-row lg:items-center lg:gap-8 lg:text-left"
+>
+  <div
+    class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-[#eeeeec] text-[#1c1d11] sm:h-20 sm:w-20"
+    aria-hidden="true"
+  >
+    <RiMailSendLine className="h-10 w-10" />
+  </div>
+
+  <div class="min-w-0 flex-1">
+    <h3 class="text-lg font-bold text-surface-dark sm:text-xl">{howItWorksShipping.title}</h3>
+    <p class="mt-1 text-[15px] text-[#2A2C11] sm:text-base">{howItWorksShipping.description}</p>
+  </div>
+
+  <a href="/konfigurator/" class={darkButtonClass}>
+    {howItWorksShipping.buttonLabel}
+  </a>
+</div>

@@ -1,163 +1,29 @@
 ---
 ---
 
-<section class="pt-6 pb-16 md:pt-8 md:pb-20 bg-white">
-  <div class="container mx-auto px-4">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-      <div class="max-w-2xl">
-        <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-6">
-          Wymiana szybki w telefonie
-        </h1>
-        
-        <div class="space-y-4 text-base md:text-lg leading-relaxed text-gray-700">
-          <p>
-            Twój telefon ma <strong class="font-semibold text-gray-900">rozbitą szybkę</strong>? W <strong class="font-semibold text-gray-900">SpaceFix</strong> 
-            specjalizujemy się w profesjonalnej <strong class="font-semibold text-gray-900">wymianie zbitej szybki</strong> w smartfonach. 
-            Nasza usługa <strong class="font-semibold text-gray-900">naprawy wyświetlacza</strong> polega na precyzyjnej 
-            <strong class="font-semibold text-gray-900">separacji warstw ekranu</strong> i montażu nowej, wysokiej jakości szybki.
-          </p>
-          
-          <p>
-            Dzięki <strong class="font-semibold text-gray-900">wymianie szybki</strong> przywracamy Twojemu telefonowi świeżość 
-            i pełną funkcjonalność, zachowując jednocześnie <strong class="font-semibold text-gray-900">oryginalną jakość wyświetlacza</strong>. 
-            To rozwiązanie jest znacznie bardziej <strong class="font-semibold text-gray-900">ekonomiczne</strong> niż wymiana całego ekranu.
-          </p>
-          
-          <p>
-            Nasi <strong class="font-semibold text-gray-900">doświadczeni technicy</strong> wykonują każdą naprawę z najwyższą precyzją, 
-            zapewniając pełną <strong class="font-semibold text-gray-900">gwarancję jakości</strong> i sprawdzając funkcjonalność 
-            warstwy dotykowej oraz matrycy po zakończeniu usługi.
-          </p>
-        </div>
+<section class="section-padding bg-[#fbfcfe]">
+  <div class="section-container">
+    <h2 class="text-2xl font-bold text-[#010101] sm:text-3xl">Wymiana szybki w telefonie</h2>
 
-        <div class="flex flex-col sm:flex-row gap-4 mt-8">
-          <a 
-            href="https://maps.app.goo.gl/XFepeV89HQe8BKV67"
-            class="inline-flex items-center justify-center px-6 py-3 border-2 border-gray-900 bg-white text-gray-900 font-semibold rounded-lg hover:bg-gray-50 transition-colors"
-          >
-            <img src="/images/visit-us.png" alt="Kurier" class="w-5 h-5 mr-2" />
-            Odwiedź nas!
-          </a>
-          
-          <a 
-            href="tel:730889759"
-            class="inline-flex items-center justify-center px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors"
-          >
-            Wycena lub Pytania
-            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-          </a>
-        </div>
-      </div>
+    <div class="prose-service mt-5 max-w-none space-y-4 text-[15px] leading-relaxed text-[#64748b] sm:text-base">
+      <p>
+        Twój telefon ma <strong>rozbitą szybkę</strong>? W <strong>SpaceFix</strong>
+        specjalizujemy się w profesjonalnej <strong>wymianie zbitej szybki</strong>
+        w smartfonach. Nasza usługa <strong>naprawy wyświetlacza</strong> polega na precyzyjnej
+        <strong>separacji warstw ekranu</strong> i montażu nowej, wysokiej jakości szybki.
+      </p>
 
-      <div class="w-full flex justify-center lg:justify-center">
-        <div id="phone-container" class="relative max-w-md w-full">
+      <p>
+        Dzięki <strong>wymianie szybki</strong> przywracamy Twojemu telefonowi świeżość i pełną
+        funkcjonalność, zachowując jednocześnie <strong>oryginalną jakość wyświetlacza</strong>.
+        To rozwiązanie jest znacznie bardziej <strong>ekonomiczne</strong> niż wymiana całego ekranu.
+      </p>
 
-          <img
-            src="/images/fixed-screen-transparent.png"
-            alt="Telefon po wymianie szybki"
-            class="w-full h-auto object-contain drop-shadow-2xl"
-            loading="eager"
-          />
-
-          <div 
-            id="cracked-overlay"
-            class="absolute inset-0 overflow-hidden transition-all duration-100 ease-out"
-            style="clip-path: inset(0 0 0 0);"
-          >
-            <img
-              src="/images/broken-screen-transparent.png"
-              alt="Telefon z pękniętą szybką"
-              class="w-full h-auto object-contain drop-shadow-2xl"
-              loading="eager"
-            />
-          </div>
-        </div>
-      </div>
+      <p>
+        Nasi <strong>doświadczeni technicy</strong> wykonują każdą naprawę z najwyższą precyzją,
+        zapewniając pełną <strong>gwarancję jakości</strong> i sprawdzając funkcjonalność warstwy
+        dotykowej oraz matrycy po zakończeniu usługi.
+      </p>
     </div>
   </div>
 </section>
-
-<script is:inline>
-  (function() {
-    'use strict';
-    
-    let ticking = false;
-    let initialized = false;
-
-    function updateCrackedOverlay() {
-      const overlay = document.getElementById('cracked-overlay');
-      const phoneContainer = document.getElementById('phone-container');
-      if (!overlay || !phoneContainer) {
-        if (!initialized) {
-          setTimeout(updateCrackedOverlay, 100);
-        }
-        return;
-      }
-
-      initialized = true;
-
-      // Detect mobile device
-      const isMobile = window.innerWidth < 1024;
-      
-      const rect = phoneContainer.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      
-      let scrollProgress = 0;
-      
-      if (isMobile) {
-        // Mobile: start at 50%, end at 10%
-        const startOffset = windowHeight * 0.5;
-        const endOffset = windowHeight * 0.1;
-        const distance = startOffset - endOffset;
-        const currentPosition = rect.top;
-        
-        if (currentPosition <= endOffset) {
-          scrollProgress = 1; // Animation complete
-        } else if (currentPosition < startOffset) {
-          scrollProgress = 1 - ((currentPosition - endOffset) / distance);
-        } else {
-          scrollProgress = 0; // Animation not started
-        }
-      } else {
-        const scrollY = window.scrollY;
-        const minScroll = 0;
-        const maxScroll = 300; // Animation completes after 300px of scroll
-        
-        scrollProgress = Math.min(Math.max((scrollY - minScroll) / (maxScroll - minScroll), 0), 1);
-      }
-      
-      // Clamp between 0 and 1
-      scrollProgress = Math.min(Math.max(scrollProgress, 0), 1);
-      
-      const slidePercentage = scrollProgress * 100;
-      
-      overlay.style.clipPath = 'inset(0 0 0 ' + slidePercentage + '%)';
-      
-      ticking = false;
-    }
-
-    function onScroll() {
-      if (!ticking) {
-        window.requestAnimationFrame(function() {
-          updateCrackedOverlay();
-        });
-        ticking = true;
-      }
-    }
-
-    function init() {
-      updateCrackedOverlay();
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', updateCrackedOverlay, { passive: true });
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      // DOM already ready
-      setTimeout(init, 0);
-    }
-  })();
-</script>

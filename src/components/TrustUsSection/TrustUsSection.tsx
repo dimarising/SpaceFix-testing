@@ -1,52 +1,50 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+const cards = [
+  {
+    title: 'Doświadczenie i wiedza',
+    text: 'Łączymy doświadczenie i wiedzę ekspercką, by oferować usługi na najwyższym poziomie w naprawie smartfonów i tabletów w Warszawie.',
+  },
+  {
+    title: 'Punktualność',
+    text: 'Cenimy Twój czas — gwarantujemy terminowe usługi w sercu Ursusa, bez zbędnej zwłoki.',
+  },
+  {
+    title: 'Dbałość o detale',
+    text: 'Każda wymiana ekranu, baterii czy inna naprawa wykonywana jest z precyzją — urządzenie jak nowe.',
+  },
+  {
+    title: 'Opinie klientów',
+    text: 'Poleceni przez mieszkańców Ursusa i Warszawy — dołącz do grona zadowolonych klientów SpaceFix.',
+  },
+];
+
 const TrustUsSection = () => {
   return (
-    <section className="m-10 mt-20">
-      <h2 className="text-2xl font-bold text-center">Profesjonalna Naprawa Smartfonów w Ursusie, Warszawa</h2>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className=" rounded-md text-white md:grid md:grid-cols-2 md:gap-4 text-center mt-10 bg-[url('/images/space.jpg')]"
-      >
-        <div className=" p-4 md:mr-14">
-          <h4 className="text-lg mb-5 text-black bg-white rounded-md">Doświadczenie i wiedza</h4>
-          <p>
-            W SpaceFix łączymy doświadczenie i wiedzę ekspercką, by oferować usługi na najwyższym poziomie w dziedzinie
-            technologii mobilnych. Jesteśmy specjalistami w <b>naprawie smartfonów i tabletów w Warszawie</b>, z
-            długoletnim doświadczeniem, pozwalającym nam na szybkie i efektywne rozwiązywanie problemów technicznych.
-          </p>
-        </div>
-        <div className=" p-4">
-          <h4 className="text-lg mb-5 text-black bg-white rounded-md">Punktualność i terminowość</h4>
-          <p>
-            Cenimy Twój czas, dlatego w SpaceFix, zlokalizowanym w sercu <b>Ursusa</b>, gwarantujemy terminowe usługi
-            naprawy telefonów i smartfonów. Nasz zespół dołoży wszelkich starań, aby Twoje urządzenie było gotowe bez
-            zbędnej zwłoki, z poszanowaniem Twojego harmonogramu.
-          </p>
-        </div>
-        <div className=" p-4 md:mr-14">
-          <h4 className="text-lg mb-5 text-black bg-white rounded-md">Dbałość o detale i estetykę</h4>
-          <p>
-            Dbamy o każdy szczegół naprawy, od estetyki do funkcjonalności. W <b>SpaceFix</b> nie ma miejsca na
-            kompromisy dotyczące jakości - każda <b>wymiana ekranu</b>, <b>baterii</b> czy <b>inne usługi naprawcze</b>
-            wykonywane są z precyzją, zachowując wygląd i czyniąc Twoje urządzenie jak nowe, gotowe służyć w dynamicznym
-            życiu <b>Warszawy</b>.
-          </p>
-          <p className="description"></p>
-        </div>
-        <div className=" p-4">
-          <h4 className="text-lg mb-5 text-black bg-white rounded-md">Referencje i opinie klientów</h4>
-          <p>
-            Poleceni przez mieszkańców <b>Ursusa i Warszawy</b>, jesteśmy dumni z pozytywnych opinii naszych klientów.
-            Satysfakcja użytkowników, którzy skorzystali z naszych usług <b>naprawy telefonów i smartfonów</b>, motywuje
-            nas do podnoszenia standardów pracy. Zaufaj ekspertom z <b>SpaceFix</b> i dołącz do grona zadowolonych
-            klientów, którzy doświadczyli profesjonalizmu na każdym etapie współpracy.
-          </p>
-        </div>
-      </motion.div>
+    <section className="section-padding bg-white">
+      <div className="section-container">
+        <h2 className="section-title mb-10 text-center">Dlaczego nam ufają?</h2>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="grid gap-6 md:grid-cols-2"
+        >
+          {cards.map((card) => (
+            <div
+              key={card.title}
+              className="card overflow-hidden bg-cover bg-center p-6"
+              style={{ backgroundImage: "url('/images/space.jpg')" }}
+            >
+              <div className="rounded-xl bg-white/95 p-5 backdrop-blur-sm">
+                <h3 className="mb-3 text-lg font-bold text-[#010101]">{card.title}</h3>
+                <p className="prose-muted">{card.text}</p>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
     </section>
   );
 };

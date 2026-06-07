@@ -1,0 +1,70 @@
+---
+import { FiArrowDown, FiPhone } from 'react-icons/fi';
+import { contact } from '../../config/site';
+import HowItWorksShippingBanner from './HowItWorksShippingBanner.astro';
+import HowItWorksStepCard from './HowItWorksStepCard.astro';
+import { howItWorksSteps } from './how-it-works-data';
+
+const phoneButtonClass =
+  'inline-flex w-full max-w-md items-center justify-center gap-2 rounded-[14px] bg-[#1c1d11] px-9 py-4 text-sm font-bold text-white transition hover:bg-[#2a2b1a] focus:outline-none focus:ring-2 focus:ring-[#1c1d11] focus:ring-offset-2 sm:text-base lg:w-auto lg:max-w-none';
+---
+
+<section
+  id="jak-to-dziala"
+  class="relative flex min-h-[964px] flex-col justify-center overflow-hidden bg-[#fbfcfe] py-16 scroll-mt-[var(--header-height)] md:py-20 lg:min-h-[964px] lg:py-24"
+>
+  <div
+    class="pointer-events-none absolute inset-0 bg-contain bg-[center_65%] bg-no-repeat"
+    style="background-image: url('/images/assets/broken-phone.png');"
+    aria-hidden="true"
+  />
+  <div class="pointer-events-none absolute inset-0 bg-[#fbfcfe]/75" aria-hidden="true" />
+
+  <div class="section-container relative z-10 flex flex-col">
+    <div class="mx-auto mb-10 max-w-3xl text-center md:mb-12 lg:mb-14">
+      <h2 class="section-title mb-4">Jak to działa?</h2>
+      <p class="section-subtitle mx-auto">Prosty proces naprawy w trzech krokach</p>
+    </div>
+
+    <div class="mx-auto w-full max-w-5xl lg:max-w-none">
+      <div class="flex flex-col items-center gap-10 lg:hidden">
+        {
+          howItWorksSteps.map((step, index) => (
+            <>
+              <HowItWorksStepCard {...step} class="max-w-md" />
+              {index < howItWorksSteps.length - 1 && (
+                <div class="flex justify-center" aria-hidden="true">
+                  <FiArrowDown className="h-6 w-6 text-[#1F1F1E]" />
+                </div>
+              )}
+            </>
+          ))
+        }
+      </div>
+
+      <div class="hidden gap-6 lg:grid lg:grid-cols-3 lg:gap-8 xl:gap-10">
+        {howItWorksSteps.map((step) => <HowItWorksStepCard {...step} />)}
+      </div>
+    </div>
+
+    <div class="mx-auto mt-8 hidden justify-center lg:mt-10 lg:flex">
+      <a href={contact.phoneHref} class={phoneButtonClass}>
+        <FiPhone className="h-5 w-5 shrink-0" aria-hidden="true" />
+        Zadzwoń {contact.phoneDisplay}
+      </a>
+    </div>
+
+    <div class="relative mt-10 lg:mt-12">
+      <div class="relative flex flex-col gap-6 px-1 sm:gap-8 lg:px-0">
+        <div class="flex justify-center lg:hidden">
+          <a href={contact.phoneHref} class={phoneButtonClass}>
+            <FiPhone className="h-5 w-5 shrink-0" aria-hidden="true" />
+            Zadzwoń {contact.phoneDisplay}
+          </a>
+        </div>
+
+        <HowItWorksShippingBanner />
+      </div>
+    </div>
+  </div>
+</section>

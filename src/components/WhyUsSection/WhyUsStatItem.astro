@@ -1,0 +1,12 @@
+---
+import type { WhyUsStat } from './why-us-data';
+
+interface Props extends WhyUsStat {}
+
+const { value, label } = Astro.props;
+---
+
+<div class="px-4 text-center">
+  <p class="text-[40px] font-bold tracking-tight text-surface-dark">{value}</p>
+  <p class="mt-1 text-[16px] leading-snug text-[#2A2C11]">{label}</p>
+</div>

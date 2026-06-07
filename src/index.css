@@ -3,5 +3,174 @@
 @tailwind utilities;
 
 :root {
-  --header-height: 100px;
+  --header-height: 56px;
+  --page-gutter: 1rem;
+  --content-max-width: 72rem;
+  --color-brand: #2563eb;
+  --color-brand-dark: #1d4ed8;
+  --color-accent: #16a34a;
+  --color-surface: #f8fafc;
+  --color-text: #0f172a;
+  --color-text-muted: #64748b;
+  --color-border: #e2e8f0;
+  --radius-card: 1rem;
+  --shadow-card: 0 4px 24px -4px rgb(15 23 42 / 0.08);
+  --color-title: #010101;
+  --color-description: #2a2c11;
+  --text-title-size: 36px;
+  --text-description-size: 18px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --text-title-size: 48px;
+    --text-description-size: 28px;
+  }
+}
+
+@media (min-width: 640px) {
+  :root {
+    --page-gutter: 1.5rem;
+  }
+}
+
+@media (min-width: 900px) {
+  :root {
+    --header-height: 64px;
+  }
+}
+
+@media (min-width: 1085px) {
+  :root {
+    --page-gutter: 2rem;
+  }
+}
+
+@media (min-width: 1344px) {
+  :root {
+    --page-gutter: 4rem;
+    --content-max-width: 76rem;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans text-surface-dark antialiased bg-white;
+  }
+
+  ::selection {
+    @apply bg-brand-100 text-brand-900;
+  }
+}
+
+@layer components {
+  .page-shell {
+    width: min(calc(100% - 2 * var(--page-gutter)), var(--content-max-width));
+    margin-inline: auto;
+  }
+
+  .page-gutter {
+    @apply page-shell;
+  }
+
+  .section-container {
+    @apply page-shell;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-20 lg:py-24;
+  }
+
+  .hero-kv-frame {
+    width: min(100%, 1920px);
+    margin-inline: auto;
+  }
+
+  .hero-kv-image {
+    width: min(100%, 1920px);
+    max-width: none;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  @media (min-width: 1441px) {
+    .hero-kv-image {
+      width: 1920px;
+    }
+
+    @supports (animation-timeline: scroll()) {
+      .hero-kv-frame {
+        animation: hero-kv-shrink linear both;
+        animation-timeline: scroll(root block);
+        animation-range-start: 0px;
+        animation-range-end: 400px;
+        will-change: width;
+      }
+    }
+  }
+
+  @keyframes hero-kv-shrink {
+    from {
+      width: min(100%, 1920px);
+    }
+
+    to {
+      width: 1440px;
+    }
+  }
+
+  .text-title,
+  .section-title {
+    font-family: theme('fontFamily.sans');
+    font-size: var(--text-title-size);
+    font-weight: 700;
+    color: var(--color-title);
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+  }
+
+  .text-description,
+  .section-subtitle,
+  .prose-muted {
+    font-family: theme('fontFamily.sans');
+    font-size: var(--text-description-size);
+    color: var(--color-description);
+    line-height: 1.5;
+  }
+
+  .section-subtitle {
+    max-width: 42rem;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition-all duration-200 hover:bg-brand-700 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border-2 border-surface-dark bg-white px-6 py-3 text-base font-semibold text-surface-dark transition-all duration-200 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 active:scale-[0.98];
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-accent-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition-all duration-200 hover:bg-accent-700 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 active:scale-[0.98];
+  }
+
+  .card {
+    @apply rounded-xl bg-white border border-slate-200/80 shadow-card transition-shadow duration-200;
+  }
+
+  .card-hover {
+    @apply card hover:shadow-card-hover hover:border-brand-200/60;
+  }
+
+  .link-nav {
+    @apply text-slate-700 font-medium hover:text-brand-600 transition-colors;
+  }
+
+  .prose-service strong {
+    @apply font-semibold text-[#010101];
+  }
 }
