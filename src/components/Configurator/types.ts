@@ -18,7 +18,7 @@ export interface Phone {
   repairs?: Repair[];
 }
 
-export type Step = 1 | 2 | 3 | 4 | 5 | 6;
+export type Step = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 export interface ConfiguratorState {
   step: Step;

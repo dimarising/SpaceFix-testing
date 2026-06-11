@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FiArrowLeft, FiCheckCircle, FiFileText, FiPhone, FiSend, FiTool } from 'react-icons/fi';
 import { contact } from '../../config/site';
 import FormDeviceHeader from './FormDeviceHeader';
 import FormDownloadInfo from './FormDownloadInfo';
 import FormSummarySidebar from './FormSummarySidebar';
+import { createShippingPdfBlobUrl, downloadShippingPdf } from './generateShippingPdf';
+import type { ShippingFormData } from './shipping-form-data';
 import type { Phone } from './types';
 import type { RepairType } from './configurator-data';
 
 interface Props {
   model: Phone;
   repair: RepairType;
+  formData: ShippingFormData;
   onBack: () => void;
 }
 
@@ -40,7 +43,48 @@ const steps = [
   },
 ];
 
-const StepForm: React.FC<Props> = ({ model, repair, onBack }) => {
+const StepForm: React.FC<Props> = ({ model, repair, formData, onBack }) => {
+  const [pdfUrl, setPdfUrl] = useState('');
+  const hasAutoDownloaded = useRef(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    let objectUrl = '';
+
+    const context = {
+      modelName: model.name,
+      repairTitle: repair.title,
+    };
+
+    void (async () => {
+      const url = await createShippingPdfBlobUrl(formData, context);
+      if (cancelled) {
+        URL.revokeObjectURL(url);
+        return;
+      }
+
+      objectUrl = url;
+      setPdfUrl(url);
+
+      if (!hasAutoDownloaded.current) {
+        await downloadShippingPdf(formData, context);
+        hasAutoDownloaded.current = true;
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }, [formData, model.name, repair.title]);
+
+  const handleDownloadAgain = () => {
+    void downloadShippingPdf(formData, {
+      modelName: model.name,
+      repairTitle: repair.title,
+    });
+  };
+
   return (
     <div>
       <div className="mb-6">
@@ -57,7 +101,11 @@ const StepForm: React.FC<Props> = ({ model, repair, onBack }) => {
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <FormDeviceHeader repair={repair} model={model} />
-          <FormDownloadInfo />
+          <FormDownloadInfo
+            pdfUrl={pdfUrl}
+            formData={formData}
+            onDownloadAgain={handleDownloadAgain}
+          />
         </div>
 
         <FormSummarySidebar model={model} repairKey={repair.repairKey} />

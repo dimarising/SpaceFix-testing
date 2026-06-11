@@ -126,7 +126,7 @@ const StepSummary: React.FC<Props> = ({ model, repair, onChangeRepair, onDownloa
           onClick={onDownloadForm}
           className="inline-flex w-full shrink-0 items-center justify-center rounded-[14px] bg-[#1c1d11] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#2a2b1a] focus:outline-none focus:ring-2 focus:ring-[#1c1d11] focus:ring-offset-2 sm:text-base lg:w-auto"
         >
-          Pobierz Formularz do Wysyłki
+          Wypełnij formularz wysyłki
         </button>
       </div>
     </div>

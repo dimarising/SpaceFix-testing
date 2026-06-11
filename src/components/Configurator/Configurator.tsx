@@ -4,7 +4,9 @@ import StepChooseDevice from './StepChooseDevice';
 import StepChooseSeries from './StepChooseSeries';
 import StepChooseModel from './StepChooseModel';
 import StepSummary from './StepSummary';
+import StepFillForm from './StepFillForm';
 import StepForm from './StepForm';
+import { emptyShippingFormData, type ShippingFormData } from './shipping-form-data';
 import { getSelectableCategories, repairTypes, type RepairType } from './configurator-data';
 import { resolveInitialRepairId } from './konfigurator-url';
 import type { Brand, Category, Phone, Step } from './types';
@@ -16,6 +18,7 @@ const stepBackgrounds: Record<Step, string | null> = {
   4: null,
   5: '/images/assets/naprawy-screen-5-6.png',
   6: '/images/assets/naprawy-screen-5-6.png',
+  7: '/images/assets/naprawy-screen-5-6.png',
 };
 
 function resolveInitialFromRepairId(repairId?: string | null): { step: Step; repair?: RepairType } {
@@ -40,6 +43,9 @@ const Configurator: React.FC<ConfiguratorProps> = ({ initialRepairId: initialRep
   const [brand, setBrand] = useState<Brand | undefined>();
   const [category, setCategory] = useState<Category | undefined>();
   const [model, setModel] = useState<Phone | undefined>();
+  const [shippingFormData, setShippingFormData] = useState<ShippingFormData>(
+    emptyShippingFormData,
+  );
 
   // Przewijamy na górę przy każdej zmianie kroku.
   useEffect(() => {
@@ -49,7 +55,7 @@ const Configurator: React.FC<ConfiguratorProps> = ({ initialRepairId: initialRep
   }, [step]);
 
   // Informujemy stronę (.astro) o aktualnym kroku i wybranej naprawie, aby pod
-  // ekranem "Pobrano formularz!" pokazać sekcje z odpowiedniej strony usługi.
+  // ekranem „Pobrano formularz!” (krok 7) pokazać sekcje z odpowiedniej strony usługi.
   useEffect(() => {
     if (typeof window === 'undefined') return;
     window.dispatchEvent(
@@ -124,7 +130,25 @@ const Configurator: React.FC<ConfiguratorProps> = ({ initialRepairId: initialRep
         );
       case 6:
         return (
-          <StepForm model={model as Phone} repair={repair as RepairType} onBack={() => setStep(5)} />
+          <StepFillForm
+            model={model as Phone}
+            repair={repair as RepairType}
+            initialData={shippingFormData}
+            onSubmit={(data) => {
+              setShippingFormData(data);
+              setStep(7);
+            }}
+            onBack={() => setStep(5)}
+          />
+        );
+      case 7:
+        return (
+          <StepForm
+            model={model as Phone}
+            repair={repair as RepairType}
+            formData={shippingFormData}
+            onBack={() => setStep(6)}
+          />
         );
       default:
         return null;
