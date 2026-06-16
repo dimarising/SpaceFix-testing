@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { contact } from '../../config/site';
 import CarouselDots from './CarouselDots';
 import CarouselNavButton from './CarouselNavButton';
@@ -20,6 +20,7 @@ function getCardsPerView(width: number): number {
 const GoogleOpinions: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(1);
+  const mobileScrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const updateCardsPerView = () => setCardsPerView(getCardsPerView(window.innerWidth));
@@ -30,18 +31,75 @@ const GoogleOpinions: React.FC = () => {
   }, []);
 
   const maxIndex = Math.max(0, reviews.length - cardsPerView);
+  const isMobile = cardsPerView === 1;
 
   useEffect(() => {
     setActiveIndex((current) => Math.min(current, maxIndex));
   }, [maxIndex]);
 
-  const goToPrevious = useCallback(() => {
-    setActiveIndex((current) => Math.max(0, current - 1));
+  const scrollToIndex = useCallback((index: number) => {
+    const container = mobileScrollRef.current;
+    if (!container) return;
+
+    const item = container.children[index] as HTMLElement | undefined;
+    item?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
   }, []);
 
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const container = mobileScrollRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const mostVisible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (!mostVisible) return;
+
+        const index = Number((mostVisible.target as HTMLElement).dataset.index);
+        if (!Number.isNaN(index)) {
+          setActiveIndex(index);
+        }
+      },
+      { root: container, threshold: [0.55, 0.75] },
+    );
+
+    Array.from(container.children).forEach((child) => observer.observe(child));
+    return () => observer.disconnect();
+  }, [isMobile]);
+
+  const goToPrevious = useCallback(() => {
+    if (isMobile) {
+      scrollToIndex(Math.max(0, activeIndex - 1));
+      return;
+    }
+
+    setActiveIndex((current) => Math.max(0, current - 1));
+  }, [activeIndex, isMobile, scrollToIndex]);
+
   const goToNext = useCallback(() => {
+    if (isMobile) {
+      scrollToIndex(Math.min(maxIndex, activeIndex + 1));
+      return;
+    }
+
     setActiveIndex((current) => Math.min(maxIndex, current + 1));
-  }, [maxIndex]);
+  }, [activeIndex, isMobile, maxIndex, scrollToIndex]);
+
+  const handleDotSelect = useCallback(
+    (index: number) => {
+      if (isMobile) {
+        scrollToIndex(index);
+        return;
+      }
+
+      setActiveIndex(index);
+    },
+    [isMobile, scrollToIndex],
+  );
 
   const visibleReviews = reviews.slice(activeIndex, activeIndex + cardsPerView);
   const isDesktop = cardsPerView === CARDS_PER_VIEW_DESKTOP;
@@ -86,26 +144,44 @@ const GoogleOpinions: React.FC = () => {
             </>
           )}
 
-          <div
-            className={`grid justify-items-center gap-5 md:gap-6 ${
-              cardsPerView === 3
-                ? 'grid-cols-3'
-                : cardsPerView === 2
-                  ? 'grid-cols-2'
-                  : 'grid-cols-1'
-            }`}
-            aria-live="polite"
-          >
-            {visibleReviews.map((review) => (
-              <ReviewCard key={`${review.author}-${review.date}`} review={review} />
-            ))}
-          </div>
+          {isMobile ? (
+            <div
+              ref={mobileScrollRef}
+              className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain scrollbar-none [-webkit-overflow-scrolling:touch]"
+              aria-live="polite"
+            >
+              {reviews.map((review, index) => (
+                <div
+                  key={`${review.author}-${review.date}`}
+                  data-index={index}
+                  className="w-full shrink-0 snap-center"
+                >
+                  <ReviewCard review={review} className="mx-auto" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div
+              className={`grid justify-items-center gap-5 md:gap-6 ${
+                cardsPerView === 3
+                  ? 'grid-cols-3'
+                  : cardsPerView === 2
+                    ? 'grid-cols-2'
+                    : 'grid-cols-1'
+              }`}
+              aria-live="polite"
+            >
+              {visibleReviews.map((review) => (
+                <ReviewCard key={`${review.author}-${review.date}`} review={review} />
+              ))}
+            </div>
+          )}
 
           {showCarouselDots && (
             <CarouselDots
               count={reviews.length}
               activeIndex={activeIndex}
-              onSelect={setActiveIndex}
+              onSelect={handleDotSelect}
               className="mt-6"
             />
           )}
