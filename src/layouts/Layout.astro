@@ -11,6 +11,8 @@ import '../index.css';
 
 const { title } = Astro.props;
 
+const baseUrl = import.meta.env.BASE_URL;
+
 const transformedTitle = `${title ? `${title} | ` : ''}SpaceFix - serwis smartfonów`;
 const description =
   'Profesjonalna naprawa smartfonów. Ekspresowa wymiana szybki, baterii, wyświetlacza. Zadzwoń pod numer 730 889 759 lub napraw od ręki pod adresem ul. Malinowa 16/U1.';
@@ -45,17 +47,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="twitter:description" content={description} />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.png`} />
     <meta name="generator" content={Astro.generator} />
     <title>{transformedTitle}</title>
     <meta property="og:title" content={transformedTitle} />
     <meta property="twitter:title" content={transformedTitle} />
-    <meta property="og:image" content="/og-image.png" />
-    <meta property="twitter:image" content="/og-image.png" />
+    <meta property="og:image" content={`${baseUrl}og-image.png`} />
+    <meta property="twitter:image" content={`${baseUrl}og-image.png`} />
     <meta property="og:type" content="website" />
     <link rel="canonical" href={canonicalURL} />
     <meta property="og:url" content={canonicalURL} />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="sitemap" href={`${baseUrl}sitemap-index.xml`} />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16696753754"></script>
     <script>

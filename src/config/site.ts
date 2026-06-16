@@ -1,3 +1,5 @@
+import { withBase } from '../utils/withBase';
+
 export const contact = {
   phone: '+48 730 889 759',
   phoneDisplay: '730 889 759',
@@ -19,10 +21,10 @@ export const contact = {
 };
 
 export const homeNavLinks = [
-  { label: 'Strona Główna', href: '/#hero' },
-  { label: 'Usługi', href: '/#naprawy' },
-  { label: 'Cennik', href: '/#cennik' },
-  { label: 'Kontakt', href: '/#kontakt' },
+  { label: 'Strona Główna', href: withBase('/#hero') },
+  { label: 'Usługi', href: withBase('/#naprawy') },
+  { label: 'Cennik', href: withBase('/#cennik') },
+  { label: 'Kontakt', href: withBase('/#kontakt') },
 ];
 
 export const openingHours = [

@@ -3,8 +3,9 @@ import HamburgerButton from './hamburger-button.tsx';
 import MobileMenu from './mobile-menu.tsx';
 import PhoneCta from './phone-cta.tsx';
 import { homeNavLinks } from '../../config/site';
+import { withBase } from '../../utils/withBase';
 
-const LOGO_SRC = '/images/assets/spacefix-logo.png';
+const LOGO_SRC = withBase('/images/assets/spacefix-logo.png');
 
 const MainNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,7 +13,7 @@ const MainNav = () => {
   return (
     <>
       <div className="flex w-full items-center justify-between">
-        <a href="/" className="flex shrink-0 items-center">
+        <a href={withBase('/')} className="flex shrink-0 items-center">
           <img
             alt="SpaceFix logo"
             src={LOGO_SRC}

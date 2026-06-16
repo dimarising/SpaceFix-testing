@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { FiX } from 'react-icons/fi';
 import PhoneCta from './phone-cta.tsx';
 import { homeNavLinks } from '../../config/site';
+import { withBase } from '../../utils/withBase';
 
 interface MobileMenuProps {
   show?: boolean;
@@ -30,7 +31,7 @@ export default function MobileMenu({ show = false, onClose, logoSrc }: MobileMen
       aria-hidden={!show}
     >
       <div className="page-shell flex items-center justify-between py-5">
-        <a href="/" className="flex items-center" onClick={onClose}>
+        <a href={withBase('/')} className="flex items-center" onClick={onClose}>
           <img alt="SpaceFix logo" src={logoSrc} className="h-[0.9rem] w-auto object-contain sm:h-5" />
         </a>
         <button

@@ -4,7 +4,8 @@ import path from "node:path";
 const BASE = "/SpaceFix-testing";
 const ROOT = path.resolve("dist");
 
-const FILE_PATTERN = /\.(html|css|js)$/;
+// Only rewrite static markup/styles. JS bundles must use import.meta.env.BASE_URL at build time.
+const FILE_PATTERN = /\.(html|css)$/;
 
 function rewrite(content) {
   return content.replace(/(["'(])\/(?!SpaceFix-testing\/)/g, (match, quote, offset) => {

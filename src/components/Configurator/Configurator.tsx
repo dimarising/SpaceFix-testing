@@ -9,16 +9,17 @@ import StepForm from './StepForm';
 import { emptyShippingFormData, type ShippingFormData } from './shipping-form-data';
 import { getSelectableCategories, repairTypes, type RepairType } from './configurator-data';
 import { resolveInitialRepairId } from './konfigurator-url';
+import { withBase } from '../../utils/withBase';
 import type { Brand, Category, Phone, Step } from './types';
 
 const stepBackgrounds: Record<Step, string | null> = {
-  1: '/images/assets/naprawy-screen-1.png',
-  2: '/images/assets/naprawy-screen-2.png',
-  3: '/images/assets/naprawy-screen-3.png',
+  1: withBase('/images/assets/naprawy-screen-1.png'),
+  2: withBase('/images/assets/naprawy-screen-2.png'),
+  3: withBase('/images/assets/naprawy-screen-3.png'),
   4: null,
-  5: '/images/assets/naprawy-screen-5-6.png',
-  6: '/images/assets/naprawy-screen-5-6.png',
-  7: '/images/assets/naprawy-screen-5-6.png',
+  5: withBase('/images/assets/naprawy-screen-5-6.png'),
+  6: withBase('/images/assets/naprawy-screen-5-6.png'),
+  7: withBase('/images/assets/naprawy-screen-5-6.png'),
 };
 
 function resolveInitialFromRepairId(repairId?: string | null): { step: Step; repair?: RepairType } {

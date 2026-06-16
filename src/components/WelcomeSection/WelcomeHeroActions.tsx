@@ -1,6 +1,7 @@
 import React from 'react';
 import { FiPhone } from 'react-icons/fi';
 import { contact } from '../../config/site';
+import { KONFIGURATOR_PATH } from '../Configurator/konfigurator-url';
 
 const calculatorIcon = (
   <svg className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -18,7 +19,7 @@ const ctaBase =
 
 const WelcomeHeroActions = () => (
   <div className="flex w-full max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:justify-center sm:gap-4">
-    <a href="/konfigurator/" className={`${ctaBase} bg-[#1c1d11] text-white shadow-sm hover:bg-[#2a2b1a]`}>
+    <a href={KONFIGURATOR_PATH} className={`${ctaBase} bg-[#1c1d11] text-white shadow-sm hover:bg-[#2a2b1a]`}>
       {calculatorIcon}
       Wyceń Naprawę
     </a>

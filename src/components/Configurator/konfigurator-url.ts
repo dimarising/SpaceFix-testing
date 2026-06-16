@@ -1,4 +1,6 @@
-export const KONFIGURATOR_PATH = '/konfigurator/';
+import { withBase } from '../../utils/withBase';
+
+export const KONFIGURATOR_PATH = withBase('/konfigurator/');
 
 /** Query param: ?naprawa=<repairType.id> → konfigurator od razu na kroku 2. */
 export const REPAIR_QUERY_PARAM = 'naprawa';
