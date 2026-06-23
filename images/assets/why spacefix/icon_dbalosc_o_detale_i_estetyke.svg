@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+  <!-- Award ribbon with checkmark: attention to detail & aesthetics -->
+  <path d="M8 34 L8 20 Q8 8 20 8 Q32 8 32 20 L32 34" fill="black" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M14 22 L18 26 L26 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="14" y1="30" x2="26" y2="30" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
