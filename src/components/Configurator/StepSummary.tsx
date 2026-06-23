@@ -3,7 +3,7 @@ import { FiArrowLeft, FiCheckCircle, FiClock, FiPhone } from 'react-icons/fi';
 import { RiMailSendLine } from 'react-icons/ri';
 import { contact } from '../../config/site';
 import { serviceWarranty } from './configurator-data';
-import { PhoneGlyph } from './icons';
+import { PhoneGlyph, PhoneImage } from './icons';
 import type { Phone, Repair } from './types';
 import type { RepairType } from './configurator-data';
 
@@ -53,46 +53,57 @@ const StepSummary: React.FC<Props> = ({ model, repair, onChangeRepair, onDownloa
 
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="rounded-2xl bg-white p-7 shadow-contact sm:p-9 lg:col-span-2">
-          <h1 className="text-3xl font-bold tracking-tight text-[#010101] sm:text-4xl">
-            {model.name}
-          </h1>
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
+            <PhoneImage
+              src={model.image}
+              alt={model.name}
+              wrapperClassName="aspect-square w-full max-w-[180px] shrink-0 self-center rounded-2xl sm:w-44"
+              imgClassName="p-3"
+              glyphClassName="h-20 w-20"
+            />
+            <div className="min-w-0 flex-1">
+              <h1 className="text-3xl font-bold tracking-tight text-[#010101] sm:text-4xl">
+                {model.name}
+              </h1>
 
-          <div className="mt-5 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#eeeeec] text-[#1c1d11]">
-              <PhoneGlyph className="h-5 w-5" />
+              <div className="mt-5 flex flex-wrap items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#eeeeec] text-[#1c1d11]">
+                  <PhoneGlyph className="h-5 w-5" />
+                </div>
+                <span className="text-lg font-bold text-[#010101]">{repair.title}</span>
+                <button
+                  type="button"
+                  onClick={onChangeRepair}
+                  className="text-sm font-medium text-[#64748b] underline underline-offset-2 transition hover:text-[#1c1d11]"
+                >
+                  Zmień
+                </button>
+              </div>
+
+              <p className="mt-6 text-4xl font-bold text-[#010101] sm:text-5xl">{price}</p>
+
+              {Array.isArray(description) ? (
+                <ul className="mt-5 list-inside list-disc text-[15px] leading-relaxed text-[#64748b] sm:text-base">
+                  {description.map((item, idx) => (
+                    <li key={idx}>{item}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-[#64748b] sm:text-base">
+                  {description ??
+                    'Skontaktuj się z nami telefonicznie - przygotujemy indywidualną wycenę tej naprawy dla Twojego modelu.'}
+                </p>
+              )}
+
+              <a
+                href={contact.phoneHref}
+                className="mt-8 inline-flex items-center justify-center gap-2 rounded-[14px] bg-[#1c1d11] px-8 py-4 text-base font-bold text-white transition hover:bg-[#2a2b1a] focus:outline-none focus:ring-2 focus:ring-[#1c1d11] focus:ring-offset-2"
+              >
+                <FiPhone className="h-5 w-5 shrink-0" aria-hidden="true" />
+                Zadzwoń teraz
+              </a>
             </div>
-            <span className="text-lg font-bold text-[#010101]">{repair.title}</span>
-            <button
-              type="button"
-              onClick={onChangeRepair}
-              className="text-sm font-medium text-[#64748b] underline-offset-2 transition hover:text-[#1c1d11] hover:underline"
-            >
-              Zmień
-            </button>
           </div>
-
-          <p className="mt-6 text-4xl font-bold text-[#010101] sm:text-5xl">{price}</p>
-
-          {Array.isArray(description) ? (
-            <ul className="mt-5 list-inside list-disc text-[15px] leading-relaxed text-[#64748b] sm:text-base">
-              {description.map((item, idx) => (
-                <li key={idx}>{item}</li>
-              ))}
-            </ul>
-          ) : (
-            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-[#64748b] sm:text-base">
-              {description ??
-                'Skontaktuj się z nami telefonicznie - przygotujemy indywidualną wycenę tej naprawy dla Twojego modelu.'}
-            </p>
-          )}
-
-          <a
-            href={contact.phoneHref}
-            className="mt-8 inline-flex items-center justify-center gap-2 rounded-[14px] bg-[#1c1d11] px-8 py-4 text-base font-bold text-white transition hover:bg-[#2a2b1a] focus:outline-none focus:ring-2 focus:ring-[#1c1d11] focus:ring-offset-2"
-          >
-            <FiPhone className="h-5 w-5 shrink-0" aria-hidden="true" />
-            Zadzwoń teraz
-          </a>
         </div>
 
         <div className="flex flex-col gap-6">

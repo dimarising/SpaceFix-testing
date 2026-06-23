@@ -1,6 +1,6 @@
 import React from 'react';
 import { FiChevronRight } from 'react-icons/fi';
-import { BrandBadge, BrandGlyph, RepairIcon } from './icons';
+import { BrandBadge, BrandGlyph, PhoneImage, RepairIcon } from './icons';
 import type { RepairType } from './configurator-data';
 
 const chevron = (
@@ -73,13 +73,30 @@ export const SeriesCard: React.FC<{ name: string; brandName: string; onClick: ()
   </button>
 );
 
-/** Ekran 4 - karta modelu (prosta). */
-export const ModelCard: React.FC<{ name: string; onClick: () => void }> = ({ name, onClick }) => (
+/** Ekran 4 - karta modelu ze zdjęciem frontu telefonu (układ pionowy). */
+export const ModelCard: React.FC<{ name: string; image?: string; onClick: () => void }> = ({
+  name,
+  image,
+  onClick,
+}) => (
   <button
     type="button"
     onClick={onClick}
-    className="flex h-full w-full items-center rounded-2xl bg-white p-7 text-left text-[20px] font-bold text-[#010101] shadow-contact transition hover:shadow-card-hover hover:bg-[#fafafa]"
+    className="group flex h-full w-full flex-col overflow-hidden rounded-2xl bg-white text-left shadow-contact transition duration-200 hover:-translate-y-0.5 hover:shadow-card-hover"
   >
-    {name}
+    <PhoneImage
+      src={image}
+      alt={name}
+      wrapperClassName="aspect-[4/3] w-full bg-[#f7f7f5]"
+      imgClassName="p-4 transition-transform duration-300 group-hover:scale-105"
+      glyphClassName="h-16 w-16"
+    />
+    <div className="flex flex-1 items-center justify-between gap-3 px-6 py-5">
+      <span className="text-[18px] font-bold leading-tight text-[#010101]">{name}</span>
+      <FiChevronRight
+        className="h-5 w-5 shrink-0 stroke-[2.5] text-[#1c1d11] transition group-hover:translate-x-1"
+        aria-hidden="true"
+      />
+    </div>
   </button>
 );

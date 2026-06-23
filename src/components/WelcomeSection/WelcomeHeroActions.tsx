@@ -1,6 +1,7 @@
 import React from 'react';
 import { FiPhone } from 'react-icons/fi';
 import { contact } from '../../config/site';
+import { withBase } from '../../utils/withBase';
 import { KONFIGURATOR_PATH } from '../Configurator/konfigurator-url';
 
 const calculatorIcon = (
@@ -22,6 +23,19 @@ const WelcomeHeroActions = () => (
     <a href={KONFIGURATOR_PATH} className={`${ctaBase} bg-[#1c1d11] text-white shadow-sm hover:bg-[#2a2b1a]`}>
       {calculatorIcon}
       Wyceń Naprawę
+    </a>
+    <a
+      href={contact.emailHref}
+      className={`${ctaBase} border border-white/30 bg-[#f5f5f0] text-[#1c1d11] shadow-sm hover:bg-white`}
+    >
+      <img
+        src={withBase('/images/mail.png')}
+        alt=""
+        aria-hidden="true"
+        className="h-5 w-5 shrink-0"
+        style={{ filter: 'brightness(0) saturate(100%)' }}
+      />
+      Napisz maila
     </a>
     <a
       href={contact.phoneHref}

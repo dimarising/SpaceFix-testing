@@ -19,6 +19,8 @@ const galleryImages = [
 
 const darkButtonClass =
   'inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-[14px] bg-[#1c1d11] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#2a2b1a] focus:outline-none focus:ring-2 focus:ring-[#1c1d11] focus:ring-offset-2 sm:text-base';
+const lightButtonClass =
+  'inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-[14px] border border-[#1c1d11]/15 bg-white px-5 py-3 text-sm font-bold text-[#1c1d11] transition hover:bg-[#f4f4f1] focus:outline-none focus:ring-2 focus:ring-[#1c1d11] focus:ring-offset-2 sm:text-base';
 
 const contactPanelClass = 'rounded-xl bg-white shadow-contact';
 ---
@@ -46,12 +48,7 @@ const contactPanelClass = 'rounded-xl bg-white shadow-contact';
         {
           galleryImages.map((image) => (
             <div class="h-full min-h-0 overflow-hidden rounded-2xl shadow-contact">
-              <img
-                src={image.src}
-                alt={image.alt}
-                class="h-full w-full object-cover object-center"
-                loading="lazy"
-              />
+              <img src={image.src} alt={image.alt} class="h-full w-full object-cover object-center" loading="lazy" />
             </div>
           ))
         }
@@ -83,13 +80,10 @@ const contactPanelClass = 'rounded-xl bg-white shadow-contact';
             class={`${darkButtonClass} mt-5`}
           >
             <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+              ></path>
             </svg>
-            Nawiguj do serwisu
+            <span>Nawiguj do serwisu</span>
           </a>
         </div>
 
@@ -115,17 +109,42 @@ const contactPanelClass = 'rounded-xl bg-white shadow-contact';
           </div>
         </div>
 
-        <a href={contact.phoneHref} class={darkButtonClass}>
-          <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-            ></path>
-          </svg>
-          Zadzwoń teraz
-        </a>
+        <div class="flex shrink-0 flex-col gap-3" data-contact-actions>
+          <a
+            href={contact.emailHref}
+            class={`${darkButtonClass} order-first`}
+            data-contact-option="email"
+            data-primary-class={darkButtonClass}
+            data-secondary-class={lightButtonClass}
+          >
+            <img
+              src="/images/mail.png"
+              alt=""
+              aria-hidden="true"
+              class="h-5 w-5 shrink-0"
+              style="filter: brightness(0) saturate(100%) invert(1);"
+            />
+            <span>Napisz maila</span>
+          </a>
+
+          <a
+            href={contact.phoneHref}
+            class={`${lightButtonClass} order-last`}
+            data-contact-option="phone"
+            data-primary-class={darkButtonClass}
+            data-secondary-class={lightButtonClass}
+          >
+            <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              ></path>
+            </svg>
+            <span>Zadzwoń teraz</span>
+          </a>
+        </div>
 
         <div class="shrink-0 rounded-xl bg-[#eaebeb] p-5 shadow-contact sm:p-6">
           <h3 class="text-base font-bold text-surface-dark sm:text-lg">Potrzebujesz pomocy?</h3>
@@ -133,7 +152,17 @@ const contactPanelClass = 'rounded-xl bg-white shadow-contact';
             Nasz zespół jest gotowy odpowiedzieć na wszystkie pytania dotyczące naprawy Twojego telefonu.
           </p>
           <p class="mt-3 text-sm">
-            Tel: <a href={contact.phoneHref} class="font-bold text-surface-dark hover:text-brand-600">{contact.phoneDisplay}</a>
+            Mail: <a href={contact.emailHref} class="font-bold text-surface-dark hover:text-brand-600"
+              >{contact.email}</a
+            >
+          </p>
+          <p class="mt-2 text-sm">
+            Tel: <a href={contact.phoneHref} class="font-bold text-surface-dark hover:text-brand-600"
+              >{contact.phoneDisplay}</a
+            >
+          </p>
+          <p class="mt-3 rounded-lg bg-white/70 px-3 py-2 text-sm font-medium text-[#2A2C11]" data-after-hours-note>
+            Mail jest priorytetową drogą kontaktu z serwisem.
           </p>
         </div>
       </div>
@@ -154,3 +183,31 @@ const contactPanelClass = 'rounded-xl bg-white shadow-contact';
     </div>
   </div>
 </section>
+
+<script>
+  import { getContactPriority } from '../../utils/openingHours';
+
+  const updateContactPriority = () => {
+    const emailIsPriority = getContactPriority() === 'email';
+    const emailAction = document.querySelector<HTMLElement>('[data-contact-option="email"]');
+    const phoneAction = document.querySelector<HTMLElement>('[data-contact-option="phone"]');
+    const afterHoursNote = document.querySelector<HTMLElement>('[data-after-hours-note]');
+
+    if (!emailAction || !phoneAction) {
+      return;
+    }
+
+    const emailClass = emailIsPriority ? emailAction.dataset.primaryClass : emailAction.dataset.secondaryClass;
+    const phoneClass = emailIsPriority ? phoneAction.dataset.secondaryClass : phoneAction.dataset.primaryClass;
+
+    emailAction.className = `${emailClass ?? ''} ${emailIsPriority ? 'order-first' : 'order-last'}`;
+    phoneAction.className = `${phoneClass ?? ''} ${emailIsPriority ? 'order-last' : 'order-first'}`;
+
+    if (afterHoursNote) {
+      afterHoursNote.classList.toggle('hidden', !emailIsPriority);
+    }
+  };
+
+  updateContactPriority();
+  window.setInterval(updateContactPriority, 60 * 1000);
+</script>

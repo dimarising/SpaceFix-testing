@@ -49,7 +49,12 @@ const StepChooseModel: React.FC<Props> = ({ brand, category, onSelect, onBack })
       {filtered.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {filtered.map((model: any) => (
-            <ModelCard key={model.slug} name={model.name} onClick={() => onSelect(model)} />
+            <ModelCard
+              key={model.slug}
+              name={model.name}
+              image={model.image}
+              onClick={() => onSelect(model)}
+            />
           ))}
         </div>
       ) : (

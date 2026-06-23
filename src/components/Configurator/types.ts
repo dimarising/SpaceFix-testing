@@ -15,6 +15,8 @@ export interface Repair {
 export interface Phone {
   name: string;
   slug: string;
+  /** URL/ścieżka do zdjęcia frontu telefonu (np. z GSMArena). Opcjonalne. */
+  image?: string;
   repairs?: Repair[];
 }
 

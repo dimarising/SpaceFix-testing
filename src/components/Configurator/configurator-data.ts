@@ -1,4 +1,5 @@
 import data from '../../data/data';
+import { phoneImages } from '../../data/phone-images';
 
 export type PopularRepairIcon =
   | 'smartphone'
@@ -6,7 +7,8 @@ export type PopularRepairIcon =
   | 'battery'
   | 'water'
   | 'backGlass'
-  | 'laser';
+  | 'chargingPort'
+  | 'motherboard';
 
 export type RepairKey = 'front-glass' | 'display' | 'back-glass' | 'battery';
 
@@ -56,10 +58,17 @@ export const repairTypes: RepairType[] = [
     repairKey: 'back-glass',
   },
   {
-    id: 'laserowa-regeneracja',
-    title: 'Laserowa Regeneracja Szyby',
-    description: 'profesjonalna regeneracja szkła bez wymiany wyświetlacza',
-    icon: 'laser',
+    id: 'naprawa-zlacza-ladowania',
+    title: 'Naprawa złącza ładowania',
+    description: 'Naprawa lub wymiana złącza ładowania',
+    icon: 'chargingPort',
+    repairKey: null,
+  },
+  {
+    id: 'naprawa-plyty-glownej',
+    title: 'Naprawa płyty głównej',
+    description: 'Profesjonalna naprawa płyty głównej',
+    icon: 'motherboard',
     repairKey: null,
   },
 ];
@@ -90,8 +99,12 @@ export const getSelectableCategories = (brand: any): any[] =>
     (category: any) => category?.ignore !== 'pages' && (category?.phones?.length ?? 0) > 0,
   );
 
-/** Modele danej serii. */
-export const getModels = (category: any): any[] => category?.phones ?? [];
+/** Modele danej serii (z dołączonym zdjęciem frontu, jeśli dostępne). */
+export const getModels = (category: any): any[] =>
+  (category?.phones ?? []).map((phone: any) => ({
+    ...phone,
+    image: phone.image ?? phoneImages[phone.slug],
+  }));
 
 /** Wyciąga liczbę złotych z ceny zapisanej jako string, np. "549 zł" => 549. */
 export const parsePrice = (price?: string): number | null => {

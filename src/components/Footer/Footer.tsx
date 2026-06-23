@@ -1,6 +1,7 @@
 import React from 'react';
 import { FiClock, FiMapPin, FiPhone } from 'react-icons/fi';
-import { contact, openingHours } from '../../config/site';
+import { contact, openingHours, socialLinks } from '../../config/site';
+import { withBase } from '../../utils/withBase';
 
 const FOOTER_TAGLINE =
   'Profesjonalny serwis telefonów GSM w Warszawie Ursus. Naprawy od ręki z gwarancją.';
@@ -25,6 +26,26 @@ const Footer = () => {
               </span>
             </a>
             <p className="mt-4 text-sm leading-relaxed text-[#010101]">{FOOTER_TAGLINE}</p>
+            <ul className="mt-6 flex items-center justify-center gap-4">
+              {socialLinks.map((social) => (
+                <li key={social.label}>
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1c1d11] text-white transition hover:bg-[#1c1d11]/80"
+                  >
+                    <img
+                      src={withBase(social.icon)}
+                      alt=""
+                      aria-hidden="true"
+                      className="h-5 w-5 [filter:invert(1)]"
+                    />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div className="mt-10 flex w-full max-w-xs flex-col items-center text-center md:mt-0 md:w-auto md:max-w-none">
