@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaApple, FaGoogle } from 'react-icons/fa';
 import { SiXiaomi } from 'react-icons/si';
-import { GiLaserBlast } from 'react-icons/gi';
 import { IoWaterOutline } from 'react-icons/io5';
 import {
   MdBatteryChargingFull,
@@ -11,27 +10,82 @@ import {
 } from 'react-icons/md';
 import type { IconType } from 'react-icons';
 import type { PopularRepairIcon } from '../PopularRepairs/popular-repairs-data';
+import { withBase } from '../../utils/withBase';
 
-const repairIcons: Record<PopularRepairIcon, IconType> = {
+const repairIcons: Partial<Record<PopularRepairIcon, IconType>> = {
   smartphone: MdSmartphone,
   monitor: MdMonitor,
   battery: MdBatteryChargingFull,
   water: IoWaterOutline,
   backGlass: MdOutlinePhonelinkSetup,
-  laser: GiLaserBlast,
+};
+
+const repairSvgIcons: Partial<Record<PopularRepairIcon, string>> = {
+  chargingPort: '/images/assets/configIcons/icon_zlacze_ladowania.svg',
+  motherboard: '/images/assets/configIcons/icon_naprawa_plyty_glownej.svg',
 };
 
 export const RepairIcon: React.FC<{ icon: PopularRepairIcon; className?: string }> = ({
   icon,
   className,
 }) => {
-  const Icon = repairIcons[icon];
+  const svgSrc = repairSvgIcons[icon];
+  if (svgSrc) {
+    return (
+      <img
+        src={withBase(svgSrc)}
+        alt=""
+        aria-hidden="true"
+        className={className}
+        loading="lazy"
+        decoding="async"
+      />
+    );
+  }
+  const Icon = repairIcons[icon] ?? MdSmartphone;
   return <Icon className={className} aria-hidden="true" />;
 };
 
 export const PhoneGlyph: React.FC<{ className?: string }> = ({ className }) => (
   <MdSmartphone className={className} aria-hidden="true" />
 );
+
+/**
+ * Zdjęcie frontu telefonu z bezpiecznym fallbackiem do ikony, gdy zdjęcie nie
+ * jest dostępne lub nie uda się go wczytać. `wrapperClassName` ustala rozmiar,
+ * tło i zaokrąglenie kontenera.
+ */
+export const PhoneImage: React.FC<{
+  src?: string;
+  alt: string;
+  wrapperClassName?: string;
+  imgClassName?: string;
+  glyphClassName?: string;
+}> = ({ src, alt, wrapperClassName, imgClassName, glyphClassName }) => {
+  const [failed, setFailed] = useState(false);
+  const showImage = Boolean(src) && !failed;
+
+  return (
+    <div
+      className={`flex items-center justify-center overflow-hidden bg-[#f4f4f2] ${
+        wrapperClassName ?? ''
+      }`}
+    >
+      {showImage ? (
+        <img
+          src={withBase(src as string)}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          onError={() => setFailed(true)}
+          className={`h-full w-full object-contain ${imgClassName ?? ''}`}
+        />
+      ) : (
+        <PhoneGlyph className={`text-[#94a3b8] ${glyphClassName ?? 'h-1/2 w-1/2'}`} />
+      )}
+    </div>
+  );
+};
 
 const brandIcons: Record<string, IconType> = {
   Apple: FaApple,

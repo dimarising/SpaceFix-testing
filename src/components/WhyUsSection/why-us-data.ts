@@ -1,9 +1,8 @@
-export type WhyUsFeatureIcon = 'shield' | 'flash' | 'star' | 'pricetag';
-
 export type WhyUsFeature = {
   title: string;
   description: string;
-  icon: WhyUsFeatureIcon;
+  iconSrc: string;
+  iconAlt: string;
 };
 
 export type WhyUsStat = {
@@ -11,26 +10,32 @@ export type WhyUsStat = {
   label: string;
 };
 
+const whyUsIconBase = '/images/assets/why%20spacefix';
+
 export const whyUsFeatures: WhyUsFeature[] = [
   {
-    title: '6 miesięcy gwarancji',
-    description: 'Pełna gwarancja na każdą wykonaną naprawę',
-    icon: 'shield',
+    title: 'Doświadczenie i wiedza',
+    description: 'W <strong>SpaceFix</strong> łączymy doświadczenie i wiedzę ekspercką, by oferować usługi na najwyższym poziomie w dziedzinie technologii mobilnych. Jesteśmy specjalistami w <strong>naprawie smartfonów i tabletów w Warszawie</strong>, z długoletnim doświadczeniem, pozwalającym nam na szybkie i efektywne rozwiązywanie problemów technicznych.',
+    iconSrc: `${whyUsIconBase}/icon_doswiadczenie_i_wiedza.svg`,
+    iconAlt: 'Doświadczenie i wiedza',
   },
   {
-    title: 'Naprawy 24-48h',
-    description: 'Szybka realizacja, popularne modele naprawiamy od ręki',
-    icon: 'flash',
+    title: 'Punktualność i terminowość',
+    description: 'Cenimy Twój czas, dlatego w <strong>SpaceFix</strong>, zlokalizowanym w sercu <strong>Ursusa</strong>, gwarantujemy <strong>terminowe usługi naprawy telefonów i smartfonów</strong>. Nasz zespół dołoży wszelkich starań, aby Twoje urządzenie było gotowe bez zbędnej zwłoki, z poszanowaniem Twojego harmonogramu.',
+    iconSrc: `${whyUsIconBase}/icon_punktualnosc_i_terminowosc.svg`,
+    iconAlt: 'Punktualność i terminowość',
   },
   {
-    title: 'Doświadczeni technicy',
-    description: 'Profesjonalny zespół z tysiącami udanych napraw',
-    icon: 'star',
+    title: 'Dbałość o detale i estetykę',
+    description: 'Dbamy o każdy szczegół naprawy, od estetyki do funkcjonalności. W <strong>SpaceFix</strong> nie ma miejsca na kompromisy dotyczące jakości - każda <strong>wymiana ekranu</strong>, <strong>baterii</strong> czy <strong>inne usługi naprawcze</strong> wykonywane są z precyzją, zachowując wygląd i czyniąc Twoje urządzenie jak nowe, gotowe służyć w dynamicznym życiu <strong>Warszawy</strong>.',
+    iconSrc: `${whyUsIconBase}/icon_dbalosc_o_detale_i_estetyke.svg`,
+    iconAlt: 'Dbałość o detale i estetykę',
   },
   {
-    title: 'Konkurencyjne ceny',
-    description: 'Najlepsza jakość części w przystępnych cenach',
-    icon: 'pricetag',
+    title: 'Referencje i opinie klientów',
+    description: 'Poleceni przez mieszkańców <strong>Ursusa i Warszawy</strong>, jesteśmy dumni z pozytywnych opinii naszych klientów. Satysfakcja użytkowników, którzy skorzystali z naszych usług naprawy <strong>telefonów i smartfonów</strong>, motywuje nas do podnoszenia standardów pracy. Zaufaj ekspertom z <strong>SpaceFix</strong> i dołącz do grona zadowolonych klientów, którzy doświadczyli profesjonalizmu na każdym etapie współpracy.',
+    iconSrc: `${whyUsIconBase}/icon_referencje_i_opinie_klientow.svg`,
+    iconAlt: 'Referencje i opinie klientów',
   },
 ];
 

@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "fetch-phone-images": "node scripts/fetch-phone-images.mjs",
     "lint": "eslint . && prettier --check .",
     "format": "eslint --fix . && prettier --write ."
   },
@@ -16,6 +17,7 @@
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.0.5",
     "@astrojs/tailwind": "^6.0.2",
+    "apify-client": "^2.23.4",
     "astro": "^5.16.6",
     "dejavu-fonts-ttf": "^2.37.3",
     "framer-motion": "^10.16.16",

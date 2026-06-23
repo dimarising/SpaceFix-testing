@@ -190,7 +190,7 @@ const initialRepairId = getRepairIdFromSearch(Astro.url.searchParams);
       section.hidden = true;
     });
 
-    if (step === 7 && repairId) {
+    if (step === 5 && repairId) {
       const match = container.querySelector<HTMLElement>(
         `[data-repair-section="${repairId}"]`,
       );

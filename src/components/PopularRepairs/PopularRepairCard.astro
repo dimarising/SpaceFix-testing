@@ -1,6 +1,5 @@
 ---
 import { FiChevronRight } from 'react-icons/fi';
-import { GiLaserBlast } from 'react-icons/gi';
 import { IoWaterOutline } from 'react-icons/io5';
 import {
   MdBatteryChargingFull,
@@ -9,21 +8,27 @@ import {
   MdSmartphone,
 } from 'react-icons/md';
 import type { PopularRepair, PopularRepairIcon } from './popular-repairs-data';
+import { withBase } from '../../utils/withBase';
 
 interface Props extends PopularRepair {}
 
 const { title, description, href, linkLabel, icon } = Astro.props;
 
-const icons: Record<PopularRepairIcon, typeof MdSmartphone> = {
+const icons: Partial<Record<PopularRepairIcon, typeof MdSmartphone>> = {
   smartphone: MdSmartphone,
   monitor: MdMonitor,
   battery: MdBatteryChargingFull,
   water: IoWaterOutline,
   backGlass: MdOutlinePhonelinkSetup,
-  laser: GiLaserBlast,
+};
+
+const svgIcons: Partial<Record<PopularRepairIcon, string>> = {
+  chargingPort: '/images/assets/configIcons/icon_zlacze_ladowania.svg',
+  motherboard: '/images/assets/configIcons/icon_naprawa_plyty_glownej.svg',
 };
 
 const Icon = icons[icon];
+const svgSrc = svgIcons[icon];
 ---
 
 <a
@@ -34,7 +39,20 @@ const Icon = icons[icon];
     class="mb-5 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#eeeeec] text-[#1c1d11] sm:mb-6 sm:h-16 sm:w-16"
     aria-hidden="true"
   >
-    <Icon className="h-7 w-7 sm:h-8 sm:w-8" />
+    {
+      svgSrc ? (
+        <img
+          src={withBase(svgSrc)}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+          class="h-7 w-7 sm:h-8 sm:w-8"
+        />
+      ) : (
+        Icon && <Icon className="h-7 w-7 sm:h-8 sm:w-8" />
+      )
+    }
   </div>
 
   <h3 class="text-lg font-bold text-surface-dark sm:text-xl">{title}</h3>

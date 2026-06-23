@@ -17,6 +17,9 @@ pnpm-debug.log*
 .env
 .env.production
 
+# scraper output
+scripts/output/
+
 # macOS-specific files
 .DS_Store
 

@@ -1,20 +1,9 @@
 ---
-import { IoIosStarOutline } from 'react-icons/io';
-import { IoFlashOutline, IoPricetagOutline, IoShieldOutline } from 'react-icons/io5';
-import type { WhyUsFeature, WhyUsFeatureIcon } from './why-us-data';
+import type { WhyUsFeature } from './why-us-data';
 
 interface Props extends WhyUsFeature {}
 
-const { title, description, icon } = Astro.props;
-
-const icons: Record<WhyUsFeatureIcon, typeof IoShieldOutline> = {
-  shield: IoShieldOutline,
-  flash: IoFlashOutline,
-  star: IoIosStarOutline,
-  pricetag: IoPricetagOutline,
-};
-
-const Icon = icons[icon];
+const { title, description, iconSrc } = Astro.props;
 ---
 
 <div class="flex flex-col items-center text-center">
@@ -22,8 +11,11 @@ const Icon = icons[icon];
     class="mb-4 flex h-20 w-20 shrink-0 items-center justify-center rounded-xl bg-[#1c1d11] shadow-sm"
     aria-hidden="true"
   >
-    <Icon className="h-10 w-10 text-white" />
+    <img src={iconSrc} alt="" width="40" height="40" class="h-10 w-10" />
   </div>
   <h3 class="text-[20px] font-bold text-surface-dark">{title}</h3>
-  <p class="mt-2 max-w-[16rem] text-[16px] leading-relaxed text-[#2A2C11]">{description}</p>
+  <p
+    class="mt-2 max-w-[19rem] text-[15px] leading-relaxed text-[#2A2C11] [&_strong]:font-semibold [&_strong]:text-surface-dark"
+    set:html={description}
+  />
 </div>

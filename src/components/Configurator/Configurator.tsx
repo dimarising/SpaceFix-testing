@@ -56,7 +56,7 @@ const Configurator: React.FC<ConfiguratorProps> = ({ initialRepairId: initialRep
   }, [step]);
 
   // Informujemy stronę (.astro) o aktualnym kroku i wybranej naprawie, aby pod
-  // ekranem „Pobrano formularz!” (krok 7) pokazać sekcje z odpowiedniej strony usługi.
+  // ekranem podsumowania z ceną (krok 5) pokazać sekcje z odpowiedniej strony usługi.
   useEffect(() => {
     if (typeof window === 'undefined') return;
     window.dispatchEvent(
