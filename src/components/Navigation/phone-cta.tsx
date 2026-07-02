@@ -7,9 +7,15 @@ import { withBase } from '../../utils/withBase';
 interface PhoneCtaProps {
   className?: string;
   fullWidth?: boolean;
+  /** Kompaktowe przyciski dla paska nawigacji — rosną dopiero od breakpointu xl. */
+  compact?: boolean;
 }
 
-export default function PhoneCta({ className = '', fullWidth = false }: PhoneCtaProps) {
+export default function PhoneCta({
+  className = '',
+  fullWidth = false,
+  compact = false,
+}: PhoneCtaProps) {
   const [priority, setPriority] = useState<ContactPriority>('email');
   const emailIsPriority = priority === 'email';
 
@@ -22,7 +28,10 @@ export default function PhoneCta({ className = '', fullWidth = false }: PhoneCta
     return () => window.clearInterval(intervalId);
   }, []);
 
-  const baseLinkClass = `inline-flex items-center justify-center gap-2 rounded-[10px] px-4 py-2.5 text-sm font-bold transition sm:px-5 sm:py-3 sm:text-base ${
+  const sizeClass = compact
+    ? 'px-3 py-2 text-sm xl:px-4 xl:py-2.5'
+    : 'px-4 py-2.5 text-sm sm:px-5 sm:py-3 sm:text-base';
+  const baseLinkClass = `inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[10px] font-bold transition ${sizeClass} ${
     fullWidth ? 'w-full' : ''
   } ${className}`;
   const primaryLinkClass = `${baseLinkClass} bg-[#1c1d11] text-white hover:bg-[#2a2b1a]`;
@@ -43,7 +52,7 @@ export default function PhoneCta({ className = '', fullWidth = false }: PhoneCta
           className="h-4 w-4 shrink-0 sm:h-5 sm:w-5"
           style={{ filter: 'brightness(0) saturate(100%) invert(1)' }}
         />
-        <span>{contact.email}</span>
+        <span className={compact ? 'sr-only lg:not-sr-only' : ''}>{contact.email}</span>
       </a>
 
       <a href={contact.phoneHref} className={emailIsPriority ? secondaryLinkClass : primaryLinkClass}>

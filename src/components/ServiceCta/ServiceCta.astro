@@ -1,0 +1,100 @@
+---
+import { FiArrowRight, FiPhone } from 'react-icons/fi';
+import { RiMailSendLine } from 'react-icons/ri';
+import { contact } from '../../config/site';
+import { getKonfiguratorHref } from '../Configurator/konfigurator-url';
+
+interface Props {
+  /** id typu naprawy (RepairType.id) — do preselekcji w konfiguratorze. */
+  repairId: string;
+  /** Nazwa naprawy używana w nagłówku CTA. */
+  repairTitle: string;
+  /** Czy dla tej usługi konfigurator wylicza cenę per model. */
+  hasPricing?: boolean;
+}
+
+const { repairId, repairTitle, hasPricing = true } = Astro.props;
+
+const konfiguratorHref = getKonfiguratorHref(repairId);
+---
+
+<section class="section-padding bg-[#fbfcfe]">
+  <div class="section-container">
+    <div
+      class="flex w-full flex-col items-center gap-5 rounded-2xl bg-white p-6 text-center shadow-contact sm:gap-6 sm:p-8 lg:flex-row lg:text-left"
+    >
+      <div
+        class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-[#eeeeec] text-[#1c1d11]"
+        aria-hidden="true"
+      >
+        <FiPhone className="h-9 w-9" />
+      </div>
+
+      <div class="min-w-0 flex-1">
+        {
+          hasPricing ? (
+            <>
+              <h2 class="text-lg font-bold text-[#010101] sm:text-xl">
+                {repairTitle} — sprawdź cenę dla swojego modelu
+              </h2>
+              <p class="mt-1 text-[15px] leading-relaxed text-[#64748b] sm:text-base">
+                Wybierz markę i model telefonu w konfiguratorze, a od razu zobaczysz wycenę naprawy.
+                Możesz też zadzwonić lub napisać — pomożemy dobrać rozwiązanie.
+              </p>
+            </>
+          ) : (
+            <>
+              <h2 class="text-lg font-bold text-[#010101] sm:text-xl">
+                {repairTitle} — bezpłatnie określimy wstępny koszt
+              </h2>
+              <p class="mt-1 text-[15px] leading-relaxed text-[#64748b] sm:text-base">
+                Opisz nam objawy usterki, a nasi technicy przygotują wstępną wycenę. Możesz też
+                rozpocząć zgłoszenie w konfiguratorze.
+              </p>
+            </>
+          )
+        }
+      </div>
+
+      <div class="flex w-full flex-col gap-3 sm:flex-row lg:w-auto lg:shrink-0">
+        {
+          hasPricing ? (
+            <>
+              <a
+                href={konfiguratorHref}
+                class="inline-flex w-full items-center justify-center gap-2 rounded-[14px] bg-[#1c1d11] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#2a2b1a] focus:outline-none focus:ring-2 focus:ring-[#1c1d11] focus:ring-offset-2 sm:text-base lg:w-auto"
+              >
+                Wyceń naprawę
+                <FiArrowRight className="h-5 w-5 shrink-0" aria-hidden="true" />
+              </a>
+              <a
+                href={contact.phoneHref}
+                class="inline-flex w-full items-center justify-center gap-2 rounded-[14px] border border-[#EBEBEB] bg-white px-6 py-3.5 text-sm font-bold text-surface-dark transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 sm:text-base lg:w-auto"
+              >
+                <FiPhone className="h-5 w-5 shrink-0" aria-hidden="true" />
+                {contact.phoneDisplay}
+              </a>
+            </>
+          ) : (
+            <>
+              <a
+                href={contact.phoneHref}
+                class="inline-flex w-full items-center justify-center gap-2 rounded-[14px] bg-[#1c1d11] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#2a2b1a] focus:outline-none focus:ring-2 focus:ring-[#1c1d11] focus:ring-offset-2 sm:text-base lg:w-auto"
+              >
+                <FiPhone className="h-5 w-5 shrink-0" aria-hidden="true" />
+                {contact.phoneDisplay}
+              </a>
+              <a
+                href={contact.emailHref}
+                class="inline-flex w-full items-center justify-center gap-2 rounded-[14px] border border-[#EBEBEB] bg-white px-6 py-3.5 text-sm font-bold text-surface-dark transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 sm:text-base lg:w-auto"
+              >
+                <RiMailSendLine className="h-5 w-5 shrink-0" aria-hidden="true" />
+                Napisz do nas
+              </a>
+            </>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</section>

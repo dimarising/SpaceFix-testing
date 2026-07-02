@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import HamburgerButton from './hamburger-button.tsx';
 import MobileMenu from './mobile-menu.tsx';
+import NavDropdown from './NavDropdown.tsx';
 import PhoneCta from './phone-cta.tsx';
 import { homeNavLinks } from '../../config/site';
 import { withBase } from '../../utils/withBase';
@@ -17,24 +18,28 @@ const MainNav = () => {
           <img
             alt="SpaceFix logo"
             src={LOGO_SRC}
-            className="h-[0.9rem] w-auto object-contain sm:h-5 nav:h-6"
+            className="h-[0.9rem] w-auto object-contain sm:h-5 xl:h-6"
           />
         </a>
 
-        <nav className="hidden items-center gap-8 nav:flex lg:gap-12" aria-label="Główne menu">
-          <ul className="flex items-center gap-6 lg:gap-8">
-            {homeNavLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="text-sm font-medium text-black transition hover:text-black/70 lg:text-base"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+        <nav className="hidden items-center gap-3 nav:flex lg:gap-6 xl:gap-8" aria-label="Główne menu">
+          <ul className="flex items-center gap-4 lg:gap-5 xl:gap-6">
+            {homeNavLinks.map((link) =>
+              link.children && link.children.length > 0 ? (
+                <NavDropdown key={link.href} link={link} />
+              ) : (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="whitespace-nowrap text-sm font-medium text-black transition hover:text-black/70 xl:text-base"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ),
+            )}
           </ul>
-          <PhoneCta />
+          <PhoneCta compact />
         </nav>
 
         <HamburgerButton

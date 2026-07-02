@@ -16,7 +16,7 @@ const RatingSummaryBadge: React.FC<RatingSummaryBadgeProps> = ({ href, className
       </div>
       <StarRating rating={5} variant="light" size="lg" />
       <p className="mt-2 text-2xl font-bold tracking-tight lg:text-[28px]">
-        {GOOGLE_RATING.score}/{GOOGLE_RATING.maxScore.toFixed(1)}
+        {GOOGLE_RATING.score.toFixed(1)}/{GOOGLE_RATING.maxScore.toFixed(1)}
       </p>
       <p className="mt-1 text-xs font-medium text-white/80 lg:text-sm">
         Na podstawie {GOOGLE_RATING.reviewCount} opinii Google
