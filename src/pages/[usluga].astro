@@ -1,0 +1,111 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { repairTypes, getServiceHref, type RepairType } from '../components/Configurator/configurator-data';
+import { withBase } from '../utils/withBase';
+import ServiceCta from '../components/ServiceCta/ServiceCta.astro';
+import WymianaSzybki from '../components/ServicePages/WymianaSzybki.astro';
+import WymianaWyswietlacza from '../components/ServicePages/WymianaWyswietlacza.astro';
+import WymianaBaterii from '../components/ServicePages/WymianaBaterii.astro';
+import NaprawaZalania from '../components/ServicePages/NaprawaZalania.astro';
+import WymianaTylnejSzyby from '../components/ServicePages/WymianaTylnejSzyby.astro';
+import NaprawaZlaczaLadowania from '../components/ServicePages/NaprawaZlaczaLadowania.astro';
+import NaprawaPlytyGlownej from '../components/ServicePages/NaprawaPlytyGlownej.astro';
+
+export function getStaticPaths() {
+  return repairTypes.map((repair) => ({
+    params: { usluga: repair.slug },
+    props: { repair },
+  }));
+}
+
+interface Props {
+  repair: RepairType;
+}
+
+const { repair } = Astro.props;
+
+const contentComponents: Record<string, any> = {
+  'wymiana-szybki': WymianaSzybki,
+  'wymiana-wyswietlacza': WymianaWyswietlacza,
+  'wymiana-baterii': WymianaBaterii,
+  'naprawa-zalania': NaprawaZalania,
+  'wymiana-tylnej-szyby': WymianaTylnejSzyby,
+  'naprawa-zlacza-ladowania': NaprawaZlaczaLadowania,
+  'naprawa-plyty-glownej': NaprawaPlytyGlownej,
+};
+
+const Content = contentComponents[repair.slug];
+const hasPricing = repair.repairKey !== null;
+// Podstrona płyty głównej ma własny blok kontaktowy w treści.
+const showCta = repair.slug !== 'naprawa-plyty-glownej';
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+const homeURL = new URL(withBase('/'), Astro.site).href;
+const uslugiURL = new URL(withBase('/#naprawy'), Astro.site).href;
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: repair.title,
+  serviceType: repair.title,
+  description: repair.metaDescription,
+  areaServed: { '@type': 'City', name: 'Warszawa' },
+  provider: {
+    '@type': 'LocalBusiness',
+    name: 'SpaceFix',
+    telephone: '+48730889759',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'ul. Malinowa 16/U1',
+      addressLocality: 'Warszawa',
+      postalCode: '02-495',
+      addressCountry: 'PL',
+    },
+  },
+  url: canonicalURL,
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: homeURL },
+    { '@type': 'ListItem', position: 2, name: 'Usługi', item: uslugiURL },
+    { '@type': 'ListItem', position: 3, name: repair.title, item: canonicalURL },
+  ],
+};
+---
+
+<Layout metaTitle={repair.metaTitle} description={repair.metaDescription}>
+  <section class="bg-[#fbfcfe] pt-10 sm:pt-12">
+    <div class="section-container">
+      <nav aria-label="Ścieżka nawigacji" class="text-sm text-[#94a3b8]">
+        <ol class="flex flex-wrap items-center gap-1.5">
+          <li>
+            <a href={withBase('/')} class="transition hover:text-[#1c1d11]">Strona główna</a>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li>
+            <a href={withBase('/#naprawy')} class="transition hover:text-[#1c1d11]">Usługi</a>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li class="font-medium text-[#1c1d11]" aria-current="page">{repair.title}</li>
+        </ol>
+      </nav>
+
+      <div class="mt-6 max-w-3xl sm:mt-8">
+        <h1 class="text-3xl font-bold leading-[1.3] tracking-tight text-[#010101] sm:text-4xl sm:leading-[1.3] lg:text-[2.75rem]">
+          {repair.h1}
+        </h1>
+        <p class="mt-4 text-base leading-relaxed text-[#64748b] sm:text-lg">{repair.lead}</p>
+      </div>
+    </div>
+  </section>
+
+  <Content />
+
+  {showCta && <ServiceCta repairId={repair.id} repairTitle={repair.title} hasPricing={hasPricing} />}
+
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
+</Layout>

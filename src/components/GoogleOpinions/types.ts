@@ -6,7 +6,7 @@ export interface Review {
 }
 
 export const GOOGLE_RATING = {
-  score: 4.9,
+  score: 5.0,
   maxScore: 5,
-  reviewCount: 342,
+  reviewCount: 400,
 } as const;

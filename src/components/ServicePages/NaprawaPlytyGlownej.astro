@@ -1,0 +1,89 @@
+---
+import ServiceIntroSection from '../ServiceIntroSection/ServiceIntroSection.astro';
+import { FiPhone } from 'react-icons/fi';
+import { RiMailSendLine } from 'react-icons/ri';
+import { contact } from '../../config/site';
+
+const motherboardRepairs = [
+  'Wymiana mikrochipu ładowania',
+  'Naprawa procesora',
+  'Naprawa modułu WiFi / Bluetooth',
+  'Reballing układów BGA',
+  'Naprawa układu zasilania',
+  'Naprawa po zwarciu / przepięciu',
+];
+---
+
+<ServiceIntroSection title="Naprawa płyty głównej w telefonie – serwis smartfonów Warszawa">
+  <p>
+    Twój telefon <strong>nie włącza się</strong>, restartuje się, nie ładuje lub przestał działać po zalaniu bądź upadku? W <strong>SpaceFix Warszawa</strong> zajmujemy się <strong>zaawansowaną naprawą płyty głównej</strong> w smartfonach, w tym dla iPhone, Samsung, Xiaomi i innych marek. Naprawa płyty głównej to praca na poziomie mikroelektroniki, dlatego <strong>koszt zależy od rodzaju i zakresu uszkodzenia</strong> i ustalamy go po diagnostyce.
+  </p>
+</ServiceIntroSection>
+
+<section class="section-padding bg-white">
+  <div class="section-container">
+    <h2 class="text-2xl font-bold leading-[1.3] text-[#010101] sm:text-3xl sm:leading-[1.3]">Przykładowe naprawy płyty głównej</h2>
+    <p class="mt-4 max-w-none text-[15px] leading-relaxed text-[#64748b] sm:text-base">
+      Każdy przypadek jest inny, dlatego dla naprawy płyty głównej nie stosujemy sztywnego cennika. Poniżej znajdziesz przykładowy zakres usług, które wykonujemy:
+    </p>
+
+    <ul class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      {
+        motherboardRepairs.map((item) => (
+          <li class="flex items-center gap-3 rounded-2xl bg-[#fbfcfe] p-5 shadow-contact">
+            <span
+              class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#1c1d11] text-white"
+              aria-hidden="true"
+            >
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fill-rule="evenodd"
+                  d="M16.704 5.29a1 1 0 010 1.42l-7.5 7.5a1 1 0 01-1.42 0l-3.5-3.5a1 1 0 011.42-1.42l2.79 2.79 6.79-6.79a1 1 0 011.42 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <span class="text-[15px] font-semibold text-[#010101] sm:text-base">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div
+      class="mt-10 flex w-full flex-col items-center gap-5 rounded-2xl bg-white p-6 text-center shadow-contact sm:gap-6 sm:p-8 lg:flex-row lg:text-left"
+    >
+      <div
+        class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-[#eeeeec] text-[#1c1d11]"
+        aria-hidden="true"
+      >
+        <FiPhone className="h-9 w-9" />
+      </div>
+
+      <div class="min-w-0 flex-1">
+        <h3 class="text-lg font-bold text-[#010101] sm:text-xl">
+          Zadzwoń lub napisz — bezpłatnie określimy wstępny koszt
+        </h3>
+        <p class="mt-1 text-[15px] leading-relaxed text-[#64748b] sm:text-base">
+          Opisz nam objawy usterki, a nasi technicy przygotują wstępną wycenę naprawy płyty głównej Twojego telefonu.
+        </p>
+      </div>
+
+      <div class="flex w-full flex-col gap-3 sm:flex-row lg:w-auto lg:shrink-0">
+        <a
+          href={contact.phoneHref}
+          class="inline-flex w-full items-center justify-center gap-2 rounded-[14px] bg-[#1c1d11] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#2a2b1a] focus:outline-none focus:ring-2 focus:ring-[#1c1d11] focus:ring-offset-2 sm:text-base lg:w-auto"
+        >
+          <FiPhone className="h-5 w-5 shrink-0" aria-hidden="true" />
+          {contact.phoneDisplay}
+        </a>
+        <a
+          href={contact.emailHref}
+          class="inline-flex w-full items-center justify-center gap-2 rounded-[14px] border border-[#EBEBEB] bg-white px-6 py-3.5 text-sm font-bold text-surface-dark transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 sm:text-base lg:w-auto"
+        >
+          <RiMailSendLine className="h-5 w-5 shrink-0" aria-hidden="true" />
+          Napisz do nas
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

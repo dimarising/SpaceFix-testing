@@ -1,5 +1,4 @@
-import { repairTypes, type PopularRepairIcon } from '../Configurator/configurator-data';
-import { getKonfiguratorHref } from '../Configurator/konfigurator-url';
+import { repairTypes, getServiceHref, type PopularRepairIcon } from '../Configurator/configurator-data';
 
 export type { PopularRepairIcon };
 
@@ -11,11 +10,11 @@ export interface PopularRepair {
   icon: PopularRepairIcon;
 }
 
-/** Karty na stronie głównej — te same typy napraw co w konfiguratorze (krok 2 po kliknięciu). */
+/** Karty na stronie głównej — prowadzą na samodzielne podstrony usług (SEO). */
 export const popularRepairs: PopularRepair[] = repairTypes.map((repair) => ({
   title: repair.title,
   description: repair.description,
-  href: getKonfiguratorHref(repair.id),
-  linkLabel: 'Wyceń',
+  href: getServiceHref(repair.slug),
+  linkLabel: 'Dowiedz się więcej',
   icon: repair.icon,
 }));
