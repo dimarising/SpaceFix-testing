@@ -2,6 +2,10 @@
 import ServiceIntroSection from '../ServiceIntroSection/ServiceIntroSection.astro';
 import ServiceInfoWithImage from '../ServiceInfoWithImage/ServiceInfoWithImage.astro';
 import GlassReplacementSteps from '../GlassReplacementSteps/GlassReplacementSteps.astro';
+import ServiceCta from '../ServiceCta/ServiceCta.astro';
+import { repairTypes } from '../Configurator/configurator-data';
+
+const repair = repairTypes.find((item) => item.id === 'wymiana-tylnej-szyby')!;
 ---
 
 <ServiceIntroSection title="Wymiana tylnej szyby w telefonie – serwis smartfonów Warszawa">
@@ -15,6 +19,12 @@ import GlassReplacementSteps from '../GlassReplacementSteps/GlassReplacementStep
     Nasi <strong>doświadczeni technicy w Warszawie</strong> wykonują każdą naprawę z najwyższą precyzją, zapewniając pełną <strong>gwarancję jakości</strong> oraz sprawdzając poprawne osadzenie nowego panelu po zakończeniu usługi.
   </p>
 </ServiceIntroSection>
+
+<ServiceCta
+  repairId={repair.id}
+  repairTitle={repair.title}
+  hasPricing={repair.repairKey !== null}
+/>
 
 <ServiceInfoWithImage
   title="Na czym polega wymiana tylnej szyby?"

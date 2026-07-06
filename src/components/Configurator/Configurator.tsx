@@ -7,8 +7,13 @@ import StepSummary from './StepSummary';
 import StepFillForm from './StepFillForm';
 import StepForm from './StepForm';
 import { emptyShippingFormData, type ShippingFormData } from './shipping-form-data';
-import { getSelectableCategories, repairTypes, type RepairType } from './configurator-data';
-import { resolveInitialRepairId } from './konfigurator-url';
+import { getSelectableCategories, repairTypes, findModelSelection, type RepairType } from './configurator-data';
+import {
+  getModelSelectionSlugs,
+  resolveInitialRepairId,
+  syncBrowserUrl,
+  type ModelSelectionSlugs,
+} from './konfigurator-url';
 import { withBase } from '../../utils/withBase';
 import type { Brand, Category, Phone, Step } from './types';
 
@@ -29,21 +34,58 @@ function resolveInitialFromRepairId(repairId?: string | null): { step: Step; rep
   return { step: 1 };
 }
 
+function resolveInitialState(
+  initialRepairIdProp?: string | null,
+  initialModelSlugs?: ModelSelectionSlugs | null,
+): {
+  step: Step;
+  repair?: RepairType;
+  brand?: Brand;
+  category?: Category;
+  model?: Phone;
+} {
+  const repairId = resolveInitialRepairId(initialRepairIdProp);
+
+  if (initialModelSlugs) {
+    const selection = findModelSelection(
+      initialModelSlugs.brandSlug,
+      initialModelSlugs.categorySlug,
+      initialModelSlugs.modelSlug,
+    );
+    if (selection) {
+      const repair =
+        (repairId ? repairTypes.find((r) => r.id === repairId) : undefined) ?? repairTypes[0];
+      return {
+        step: 5,
+        repair,
+        brand: selection.brand,
+        category: selection.category,
+        model: selection.model,
+      };
+    }
+  }
+
+  const fromRepair = resolveInitialFromRepairId(repairId);
+  return { ...fromRepair, brand: undefined, category: undefined, model: undefined };
+}
+
 interface ConfiguratorProps {
   /** Z ?naprawa=... (Astro) — od razu krok 2, bez migania ekranu 1. */
   initialRepairId?: string | null;
+  /** Z /offer/<marka>/<seria>/<model>/ — od razu krok 5 z wybranym modelem. */
+  initialModelSlugs?: ModelSelectionSlugs | null;
 }
 
-const Configurator: React.FC<ConfiguratorProps> = ({ initialRepairId: initialRepairIdProp }) => {
-  const [step, setStep] = useState<Step>(() =>
-    resolveInitialFromRepairId(resolveInitialRepairId(initialRepairIdProp)).step,
-  );
-  const [repair, setRepair] = useState<RepairType | undefined>(
-    () => resolveInitialFromRepairId(resolveInitialRepairId(initialRepairIdProp)).repair,
-  );
-  const [brand, setBrand] = useState<Brand | undefined>();
-  const [category, setCategory] = useState<Category | undefined>();
-  const [model, setModel] = useState<Phone | undefined>();
+const Configurator: React.FC<ConfiguratorProps> = ({
+  initialRepairId: initialRepairIdProp,
+  initialModelSlugs,
+}) => {
+  const [initial] = useState(() => resolveInitialState(initialRepairIdProp, initialModelSlugs));
+  const [step, setStep] = useState<Step>(initial.step);
+  const [repair, setRepair] = useState<RepairType | undefined>(initial.repair);
+  const [brand, setBrand] = useState<Brand | undefined>(initial.brand);
+  const [category, setCategory] = useState<Category | undefined>(initial.category);
+  const [model, setModel] = useState<Phone | undefined>(initial.model);
   const [shippingFormData, setShippingFormData] = useState<ShippingFormData>(
     emptyShippingFormData,
   );
@@ -65,6 +107,16 @@ const Configurator: React.FC<ConfiguratorProps> = ({ initialRepairId: initialRep
       }),
     );
   }, [step, repair]);
+
+  // Po wyborze modelu (krok 5+) aktualizujemy URL na /offer/<marka>/<seria>/<model>/.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (step >= 5 && model && brand && category) {
+      syncBrowserUrl(getModelSelectionSlugs(brand, category, model), repair?.id ?? null);
+    } else {
+      syncBrowserUrl(null, repair?.id ?? null);
+    }
+  }, [step, model, brand, category, repair]);
 
   const handleSelectRepair = (selected: RepairType) => {
     setRepair(selected);

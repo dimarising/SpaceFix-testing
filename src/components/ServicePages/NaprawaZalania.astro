@@ -2,6 +2,10 @@
 import ServiceIntroSection from '../ServiceIntroSection/ServiceIntroSection.astro';
 import ServiceInfoWithImage from '../ServiceInfoWithImage/ServiceInfoWithImage.astro';
 import GlassReplacementSteps from '../GlassReplacementSteps/GlassReplacementSteps.astro';
+import ServiceCta from '../ServiceCta/ServiceCta.astro';
+import { repairTypes } from '../Configurator/configurator-data';
+
+const repair = repairTypes.find((item) => item.id === 'naprawa-zalania')!;
 ---
 
 <ServiceIntroSection title="Naprawa telefonu po zalaniu – serwis smartfonów Warszawa">
@@ -15,6 +19,12 @@ import GlassReplacementSteps from '../GlassReplacementSteps/GlassReplacementStep
     Nasi <strong>doświadczeni technicy w Warszawie</strong> wykorzystują specjalistyczny sprzęt i nowoczesne metody serwisowe, zapewniając pełną <strong>gwarancję jakości naprawy telefonu po zalaniu</strong> oraz sprawdzając pełną funkcjonalność urządzenia po zakończeniu usługi.
   </p>
 </ServiceIntroSection>
+
+<ServiceCta
+  repairId={repair.id}
+  repairTitle={repair.title}
+  hasPricing={repair.repairKey !== null}
+/>
 
 <ServiceInfoWithImage
   title="Na czym polega naprawa telefonu po zalaniu?"

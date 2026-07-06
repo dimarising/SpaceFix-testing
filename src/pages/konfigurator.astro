@@ -1,28 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Configurator from '../components/Configurator/Configurator';
+import ConfiguratorShell from '../components/Configurator/ConfiguratorShell.astro';
 import { getRepairIdFromSearch } from '../components/Configurator/konfigurator-url';
-import { repairTypes } from '../components/Configurator/configurator-data';
-import WymianaSzybki from '../components/ServicePages/WymianaSzybki.astro';
-import WymianaWyswietlacza from '../components/ServicePages/WymianaWyswietlacza.astro';
-import WymianaBaterii from '../components/ServicePages/WymianaBaterii.astro';
-import NaprawaZalania from '../components/ServicePages/NaprawaZalania.astro';
-import WymianaTylnejSzyby from '../components/ServicePages/WymianaTylnejSzyby.astro';
-import NaprawaZlaczaLadowania from '../components/ServicePages/NaprawaZlaczaLadowania.astro';
-import NaprawaPlytyGlownej from '../components/ServicePages/NaprawaPlytyGlownej.astro';
 
 const initialRepairId = getRepairIdFromSearch(Astro.url.searchParams);
-
-// Sekcje usług pokazywane pod podsumowaniem (krok 5) — kluczowane po RepairType.id.
-const repairSections: Record<string, any> = {
-  'wymiana-szybki': WymianaSzybki,
-  wyswietlacz: WymianaWyswietlacza,
-  bateria: WymianaBaterii,
-  'naprawa-zalania': NaprawaZalania,
-  'wymiana-tylnej-szyby': WymianaTylnejSzyby,
-  'naprawa-zlacza-ladowania': NaprawaZlaczaLadowania,
-  'naprawa-plyty-glownej': NaprawaPlytyGlownej,
-};
 ---
 
 <Layout
@@ -38,43 +20,5 @@ const repairSections: Record<string, any> = {
     />
   </Configurator>
 
-  <div id="repair-page-sections" class="border-t border-[#e2e8f0]">
-    {
-      repairTypes.map((repair) => {
-        const Section = repairSections[repair.id];
-        if (!Section) return null;
-        return (
-          <div data-repair-section={repair.id} hidden>
-            <Section />
-          </div>
-        );
-      })
-    }
-  </div>
+  <ConfiguratorShell />
 </Layout>
-
-<script>
-  type ConfiguratorStateDetail = { step?: number; repairId?: string | null };
-
-  function applyConfiguratorState(step?: number, repairId?: string | null) {
-    const container = document.getElementById('repair-page-sections');
-    if (!container) return;
-
-    const sections = container.querySelectorAll<HTMLElement>('[data-repair-section]');
-    sections.forEach((section) => {
-      section.hidden = true;
-    });
-
-    if (step === 5 && repairId) {
-      const match = container.querySelector<HTMLElement>(
-        `[data-repair-section="${repairId}"]`,
-      );
-      if (match) match.hidden = false;
-    }
-  }
-
-  window.addEventListener('configurator:state', (event) => {
-    const detail = (event as CustomEvent<ConfiguratorStateDetail>).detail ?? {};
-    applyConfiguratorState(detail.step, detail.repairId);
-  });
-</script>

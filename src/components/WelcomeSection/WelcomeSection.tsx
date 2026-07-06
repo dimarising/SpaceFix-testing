@@ -34,7 +34,7 @@ const WelcomeSection = () => {
             <WelcomeHeroActions />
           </div>
 
-          <HeroGoogleReviewBadge className="mt-[300px]" />
+          <HeroGoogleReviewBadge className="mt-auto mb-6 sm:mt-[300px] sm:mb-0" />
         </div>
       </div>
     </section>

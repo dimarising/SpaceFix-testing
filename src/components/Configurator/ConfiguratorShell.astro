@@ -1,0 +1,60 @@
+---
+import { repairTypes } from './configurator-data';
+import WymianaSzybki from '../ServicePages/WymianaSzybki.astro';
+import WymianaWyswietlacza from '../ServicePages/WymianaWyswietlacza.astro';
+import WymianaBaterii from '../ServicePages/WymianaBaterii.astro';
+import NaprawaZalania from '../ServicePages/NaprawaZalania.astro';
+import WymianaTylnejSzyby from '../ServicePages/WymianaTylnejSzyby.astro';
+import NaprawaZlaczaLadowania from '../ServicePages/NaprawaZlaczaLadowania.astro';
+import NaprawaPlytyGlownej from '../ServicePages/NaprawaPlytyGlownej.astro';
+
+const repairSections: Record<string, any> = {
+  'wymiana-szybki': WymianaSzybki,
+  wyswietlacz: WymianaWyswietlacza,
+  bateria: WymianaBaterii,
+  'naprawa-zalania': NaprawaZalania,
+  'wymiana-tylnej-szyby': WymianaTylnejSzyby,
+  'naprawa-zlacza-ladowania': NaprawaZlaczaLadowania,
+  'naprawa-plyty-glownej': NaprawaPlytyGlownej,
+};
+---
+
+<div id="repair-page-sections" class="border-t border-[#e2e8f0]">
+  {
+    repairTypes.map((repair) => {
+      const Section = repairSections[repair.id];
+      if (!Section) return null;
+      return (
+        <div data-repair-section={repair.id} hidden>
+          <Section />
+        </div>
+      );
+    })
+  }
+</div>
+
+<script>
+  type ConfiguratorStateDetail = { step?: number; repairId?: string | null };
+
+  function applyConfiguratorState(step?: number, repairId?: string | null) {
+    const container = document.getElementById('repair-page-sections');
+    if (!container) return;
+
+    const sections = container.querySelectorAll<HTMLElement>('[data-repair-section]');
+    sections.forEach((section) => {
+      section.hidden = true;
+    });
+
+    if (step === 5 && repairId) {
+      const match = container.querySelector<HTMLElement>(
+        `[data-repair-section="${repairId}"]`,
+      );
+      if (match) match.hidden = false;
+    }
+  }
+
+  window.addEventListener('configurator:state', (event) => {
+    const detail = (event as CustomEvent<ConfiguratorStateDetail>).detail ?? {};
+    applyConfiguratorState(detail.step, detail.repairId);
+  });
+</script>

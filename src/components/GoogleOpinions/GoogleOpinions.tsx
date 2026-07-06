@@ -147,14 +147,14 @@ const GoogleOpinions: React.FC = () => {
           {isMobile ? (
             <div
               ref={mobileScrollRef}
-              className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain scrollbar-none [-webkit-overflow-scrolling:touch]"
+              className="flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain scrollbar-none [-webkit-overflow-scrolling:touch]"
               aria-live="polite"
             >
               {reviews.map((review, index) => (
                 <div
                   key={`${review.author}-${review.date}`}
                   data-index={index}
-                  className="w-full shrink-0 snap-center"
+                  className="shrink-0 basis-full snap-center"
                 >
                   <ReviewCard review={review} className="mx-auto" />
                 </div>

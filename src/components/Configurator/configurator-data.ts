@@ -166,6 +166,30 @@ export const getModels = (category: any): any[] =>
     image: phone.image ?? phoneImages[phone.slug],
   }));
 
+const trimSlashes = (value: string): string => value.replace(/^\/+|\/+$/g, '');
+
+/** Znajduje markę, serię i model po slugach z URL oferty. */
+export const findModelSelection = (
+  brandSlug: string,
+  categorySlug: string,
+  modelSlug: string,
+): { brand: any; category: any; model: any } | null => {
+  const brand = data.find((item) => trimSlashes(item.slug) === trimSlashes(brandSlug));
+  if (!brand?.categories) return null;
+
+  const category = brand.categories.find(
+    (item) => trimSlashes(item.slug) === trimSlashes(categorySlug),
+  );
+  if (!category) return null;
+
+  const model = getModels(category).find(
+    (phone) => trimSlashes(phone.slug) === trimSlashes(modelSlug),
+  );
+  if (!model) return null;
+
+  return { brand, category, model };
+};
+
 /** Wyciąga liczbę złotych z ceny zapisanej jako string, np. "549 zł" => 549. */
 export const parsePrice = (price?: string): number | null => {
   if (!price) return null;

@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import { repairTypes, getServiceHref, type RepairType } from '../components/Configurator/configurator-data';
 import { withBase } from '../utils/withBase';
-import ServiceCta from '../components/ServiceCta/ServiceCta.astro';
 import WymianaSzybki from '../components/ServicePages/WymianaSzybki.astro';
 import WymianaWyswietlacza from '../components/ServicePages/WymianaWyswietlacza.astro';
 import WymianaBaterii from '../components/ServicePages/WymianaBaterii.astro';
@@ -35,9 +34,6 @@ const contentComponents: Record<string, any> = {
 };
 
 const Content = contentComponents[repair.slug];
-const hasPricing = repair.repairKey !== null;
-// Podstrona płyty głównej ma własny blok kontaktowy w treści.
-const showCta = repair.slug !== 'naprawa-plyty-glownej';
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
 const homeURL = new URL(withBase('/'), Astro.site).href;
@@ -103,8 +99,6 @@ const breadcrumbSchema = {
   </section>
 
   <Content />
-
-  {showCta && <ServiceCta repairId={repair.id} repairTitle={repair.title} hasPricing={hasPricing} />}
 
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} is:inline />
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />

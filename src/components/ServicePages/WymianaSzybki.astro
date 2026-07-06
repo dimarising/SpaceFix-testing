@@ -2,8 +2,17 @@
 import GlassReplacementTop from '../GlassReplacementTop/GlassReplacementTop.astro';
 import GlassReplacementInfo from '../GlassReplacementInfo/GlassReplacementInfo.astro';
 import GlassReplacementSteps from '../GlassReplacementSteps/GlassReplacementSteps.astro';
+import ServiceCta from '../ServiceCta/ServiceCta.astro';
+import { repairTypes } from '../Configurator/configurator-data';
+
+const repair = repairTypes.find((item) => item.id === 'wymiana-szybki')!;
 ---
 
 <GlassReplacementTop />
+<ServiceCta
+  repairId={repair.id}
+  repairTitle={repair.title}
+  hasPricing={repair.repairKey !== null}
+/>
 <GlassReplacementInfo />
 <GlassReplacementSteps />

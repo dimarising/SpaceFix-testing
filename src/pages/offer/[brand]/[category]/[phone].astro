@@ -1,0 +1,51 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import Configurator from '../../../../components/Configurator/Configurator';
+import ConfiguratorShell from '../../../../components/Configurator/ConfiguratorShell.astro';
+import { getRepairIdFromSearch } from '../../../../components/Configurator/konfigurator-url';
+import data from '../../../../data/data';
+
+export function getStaticPaths() {
+  const trimSlashes = (value: string) => value.replace(/^\/+|\/+$/g, '');
+
+  return data
+    .filter((item) => item.categories)
+    .flatMap(({ slug, categories }) =>
+      categories
+        .filter((category) => (category.phones?.length ?? 0) > 0)
+        .flatMap((category) =>
+          category.phones.map((phone) => ({
+            params: {
+              brand: trimSlashes(slug),
+              category: trimSlashes(category.slug),
+              phone: trimSlashes(phone.slug),
+            },
+            props: {
+              modelName: phone.name,
+            },
+          })),
+        ),
+    );
+}
+
+const { brand, category, phone } = Astro.params;
+const { modelName } = Astro.props;
+const initialRepairId = getRepairIdFromSearch(Astro.url.searchParams);
+const initialModelSlugs = { brandSlug: brand!, categorySlug: category!, modelSlug: phone! };
+---
+
+<Layout
+  title={`${modelName} | SpaceFix - serwis smartfonów`}
+  description={`Wyceń naprawę ${modelName} online — wymiana szybki, wyświetlacza, baterii i inne usługi. SpaceFix, Warszawa.`}
+>
+  <Configurator client:only="react" initialRepairId={initialRepairId} initialModelSlugs={initialModelSlugs}>
+    <div
+      slot="fallback"
+      class="relative min-h-[calc(100vh-var(--header-height))] bg-[#fbfcfe]"
+      aria-busy="true"
+      aria-label="Ładowanie konfiguratora"
+    />
+  </Configurator>
+
+  <ConfiguratorShell />
+</Layout>
