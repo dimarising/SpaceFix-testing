@@ -22,7 +22,7 @@ const WelcomeHeroActions = () => (
   <div className="flex w-full max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:justify-center sm:gap-4">
     <a href={KONFIGURATOR_PATH} className={`${ctaBase} bg-[#1c1d11] text-white shadow-sm hover:bg-[#2a2b1a]`}>
       {calculatorIcon}
-      Wyceń Naprawę
+      Sprawdź cenę
     </a>
     <a
       href={contact.emailHref}
